@@ -6,6 +6,8 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 -- Delete tables before creating  
+DROP database IF EXISTS littlewonders
+CREATE database littlewonders;
 USE littlewonders; 
 DROP TABLE IF EXISTS GST;
 DROP TABLE IF EXISTS OrderData;
