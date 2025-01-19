@@ -22,7 +22,7 @@
         <!-- 2nd Row -->
         <div class="row">   
             <div class="col-sm-12">
-                <?php include("navbar.php"); ?>  
+                <?php include("navbar2.php"); ?>  
             </div>
         </div>
         <!-- 3rd Row -->

@@ -3,9 +3,9 @@
 // when shopper has yet to login,
 $content1 = "<span style='color:#EDC9AF;'>Welcome Guest</span><br />";
 $content2 = "<li class='nav-item'>
-		     <a class='nav-link' href='./php/register.php'>Sign Up</a></li>
+		     <a class='nav-link' href='register.php'>Sign Up</a></li>
 			 <li class='nav-item'>
-		     <a class='nav-link' href='./php/login.php'>Login</a></li>";
+		     <a class='nav-link' href='login.php'>Login</a></li>";
 
 if(isset($_SESSION["ShopperName"])) { 
 	// To Do 1 (Practical 2) - 
@@ -14,9 +14,9 @@ if(isset($_SESSION["ShopperName"])) {
 	
     $content1 = "Welcome <b>$_SESSION[ShopperName]</b>"; 
     $content2 = "<li class='nav-item'>
-                <a class='nav-link' href='./php/changePassword.php'>Change Password</a></li> 
+                <a class='nav-link' href='changePassword.php'>Change Password</a></li> 
                 <li class='nav-item'>
-                <a class='nav-link' href='./php/logout.php'>Logout</a></li>";
+                <a class='nav-link' href='logout.php'>Logout</a></li>";
 	// To Do 2 (Practical 4) - 
     // Display number of item in cart
 	if (isset($_SESSION["NumCartItem"]))
