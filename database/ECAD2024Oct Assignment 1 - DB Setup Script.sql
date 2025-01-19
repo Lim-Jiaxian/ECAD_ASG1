@@ -6,7 +6,7 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 -- Delete tables before creating  
-DROP database IF EXISTS littlewonders
+DROP database IF EXISTS littlewonders;
 CREATE database littlewonders;
 USE littlewonders; 
 DROP TABLE IF EXISTS GST;
@@ -33,7 +33,7 @@ CREATE TABLE Shopper
   Country VARCHAR(50) DEFAULT NULL,
   Phone VARCHAR(20) DEFAULT NULL,
   Email VARCHAR(50) NOT NULL,
-  Password VARCHAR(20) NOT NULL,
+  Password VARCHAR(60) NOT NULL,
   PwdQuestion VARCHAR(100) DEFAULT NULL,
   PwdAnswer VARCHAR(50) DEFAULT NULL,
   ActiveStatus INT(4) NOT NULL DEFAULT 1,
