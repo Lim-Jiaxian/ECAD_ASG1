@@ -4,6 +4,7 @@ session_start();
 // Include the Page Layout header 
 include("header.php");
 ?>
+
 <!-- Create a cenrally located container -->
 <div style="width: 80%; margin:auto;">
     <!-- Create a HTML Form within the container -->

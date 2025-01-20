@@ -1,9 +1,12 @@
 <?php
 // Detect the current session
 session_start();
+// Include config file
+$config = include(__DIR__ . "/../config.php");
 // Include the Page Layout header
 include("header.php");
 ?>
+
 <script type="text/javascript">
     function validateForm() {
         // To Do 1 - Check if password matched

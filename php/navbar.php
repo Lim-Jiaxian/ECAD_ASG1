@@ -1,26 +1,28 @@
-<?php 
+<?php
+// Include config file
+$config = include(__DIR__ . "/../config.php");
+
 // Display guest welcome message, Login and Registration links
 // when shopper has yet to login,
 $content1 = "<span style='color:#EDC9AF;'>Welcome Guest</span><br />";
 $content2 = "<li class='nav-item'>
-		     <a class='nav-link' href='./php/register.php'>Sign Up</a></li>
+		     <a class='nav-link' href='" . $config->SITE_ROOT . "/php/register.php'>Sign Up</a></li>
 			 <li class='nav-item'>
-		     <a class='nav-link' href='./php/login.php'>Login</a></li>";
+		     <a class='nav-link' href='" . $config->SITE_ROOT . "/php/login.php'>Login</a></li>";
 
-if(isset($_SESSION["ShopperName"])) { 
-	// To Do 1 (Practical 2) - 
+if (isset($_SESSION["ShopperName"])) {
+    // To Do 1 (Practical 2) - 
     // Display a greeting message, Change Password and logout links 
     // after shopper has logged in.
-	
-    $content1 = "Welcome <b>$_SESSION[ShopperName]</b>"; 
+
+    $content1 = "Welcome <b>$_SESSION[ShopperName]</b>";
     $content2 = "<li class='nav-item'>
-                <a class='nav-link' href='./php/changePassword.php'>Change Password</a></li> 
+                <a class='nav-link' href='" . $config->SITE_ROOT . "/php/changePassword.php'>Change Password</a></li> 
                 <li class='nav-item'>
-                <a class='nav-link' href='./php/logout.php'>Logout</a></li>";
-	// To Do 2 (Practical 4) - 
+                <a class='nav-link' href='" . $config->SITE_ROOT . "/php/logout.php'>Logout</a></li>";
+    // To Do 2 (Practical 4) - 
     // Display number of item in cart
-	if (isset($_SESSION["NumCartItem"]))
-    {
+    if (isset($_SESSION["NumCartItem"])) {
         $content1 .= ",$_SESSION[NumCartItem] item(s) in shopping cart";
     }
 }
@@ -28,8 +30,8 @@ if(isset($_SESSION["ShopperName"])) {
 
 <style>
     <?php
-        // Link CSS
-        include("../css/site.css");
+    // Link CSS
+    include(__DIR__ . "/../css/site.css");
     ?>
 </style>
 
@@ -48,24 +50,24 @@ if(isset($_SESSION["ShopperName"])) {
         </div>
     </nav>
 </div>
- 
+
 <!-- To Do 4 (Practical 1) - Define a collapsible navbar -->
 
 <div class="bg-custom">
     <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container-fluid">
             <!-- Collapsible part of navbar -->
-            <div class="collapse navbar-collapse" id="collapsibleNavbar"> 
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <!-- Left-justified menu items -->
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item" >
-                        <a class="nav-link" href="category.php">Product Categories</a> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/category.php">Product Categories</a>
                     </li>
-                    <li class="nav-item" >
-                        <a class="nav-link" href="search.php">Product Search</a> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/search.php">Product Search</a>
                     </li>
-                    <li class="nav-item" >
-                        <a class="nav-link" href="shoppingCart.php">Shopping Cart</a> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/shoppingCart.php">Shopping Cart</a>
                     </li>
                 </ul>
                 <!-- Right-justified menu items -->
