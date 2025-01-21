@@ -1,13 +1,17 @@
-<?php 
+<?php
 // Detect the current session
 session_start();
+// Include config file
+$config = include("config.php");
 // Include the Page Layout header
-include("./php/header.php"); 
+include("php/header.php");
 ?>
-<img src="" class="img-fluid" 
-     style="display:block; margin:auto;"/>";
 
-<?php 
+<html>
+
+</html>
+
+<?php
 // Include the Page Layout footer
-include("./php/footer.php"); 
+include("php/footer.php");
 ?>

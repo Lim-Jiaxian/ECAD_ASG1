@@ -2,21 +2,22 @@
 // Detect the current session
 session_start();
 // Include the Page Layout header 
-include("header2.php");
+include("header.php");
 ?>
-<!-- Create a cenrally located container --> 
+
+<!-- Create a cenrally located container -->
 <div style="width: 80%; margin:auto;">
     <!-- Create a HTML Form within the container -->
-    <form action="checkLogin.php" method="post"> 
+    <form action="checkLogin.php" method="post">
         <!-- 1st row - Header Row -->
         <div class="mb-3 row">
             <div class="col-sm-9 offset-sm-3">
                 <span class="page-title">Member Login</span>
             </div>
-        </div> 
-        <!-- 2nd row - Entry of email address --> 
+        </div>
+        <!-- 2nd row - Entry of email address -->
         <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="email"> 
+            <label class="col-sm-3 col-form-label" for="email">
                 Email Address:
             </label>
             <div class="col-sm-9">
@@ -32,7 +33,7 @@ include("header2.php");
                 <input class="form-control" type="password" name="password" id="password" required />
             </div>
         </div>
-        <!-- 4th row - Login button --> 
+        <!-- 4th row - Login button -->
         <div class='mb-3 row'>
             <div class='col-sm-9 offset-sm-3'>
                 <button class="btn btn-primary" type='submit'>Login</button>
