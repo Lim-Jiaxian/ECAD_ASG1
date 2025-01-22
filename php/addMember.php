@@ -47,7 +47,7 @@ $stmt->close();
 $conn->close();
 
 // Display Page Layout header with updated session state and links.
-include("header2.php");
+include("header.php");
 // Display message
 echo $Message;
 // Display Page Layout footer
