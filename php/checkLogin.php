@@ -2,7 +2,7 @@
 // Detect the current session
 session_start();
 // Include the Page Layout header
-include("header2.php"); 
+include("header.php"); 
 
 // Reading inputs entered in previous page
 $email = $_POST["email"];
@@ -39,6 +39,8 @@ if ($result->num_rows > 0) {
 
 			// Redirect to home page
 			header("Location: ../index.php");
+			// Redirect to product page temporarily until home discounts is added
+			header("Location: ./category.php");
 			exit;
 		}
 		else {
