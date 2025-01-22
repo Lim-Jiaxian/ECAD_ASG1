@@ -57,9 +57,9 @@ while ($row = $result->fetch_array()) {
     echo "</div>"; // End of left column
     
     // Right column - display the product's image  
-    $img = "./Images/products/$row[ProductImage]";
+    $img = "../Images/Products/$row[ProductImage]";
     echo "<div class='col-sm-3' style='vertical-align:top; padding:5px'>"; 
-    echo "<p><img src='$img' style='max-width=100%'/></p>";
+    echo "<p><img src='$img' style='max-width=100%; height:80px'/></p>";
 
     // Right column - display the product's price 
     $formattedPrice = number_format($row["Price"], 2); 

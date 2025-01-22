@@ -43,9 +43,9 @@ while ($row = $result->fetch_array()) {
 	echo "</div>";
 
 	// Right column - display the product's image 
-	$img = "./Images/products/$row[ProductImage]"; 
+	$img = "../Images/Products/$row[ProductImage]"; 
 	echo "<div class='col-4'>"; //33% of row width 
-	echo "<img src='$img' />";
+	echo "<img src='$img' style='height: 60px'/>";
 	echo "</div>";
 
 	echo "</div>"; // End of a row
