@@ -3,11 +3,11 @@
 $config = include(__DIR__ . "/../config.php");
 
 // Display guest welcome message, Login and Registration links when the shopper has yet to login
-$content1 = "<span style='color:#8d695b;'>Welcome Guest</span><br />";
-$content2 = "<li class='nav-item'>
-             <a class='nav-link' href='" . $config->SITE_ROOT . "/php/register.php'>Sign Up</a></li>
-             <li class='nav-item'>
-             <a class='nav-link' href='" . $config->SITE_ROOT . "/php/login.php'>Login</a></li>";
+$content1 = "<span style='color:#8d695b; padding-right: 20px;'>Welcome Guest</span><br />";
+$content2 = "
+             <a class='nav-link' href='" . $config->SITE_ROOT . "/php/register.php'>Sign Up</a>
+    
+             <a class='nav-link' href='" . $config->SITE_ROOT . "/php/login.php'>Login</a>";
 $profile = "";
 $cart = "";
 $search = "";
@@ -50,7 +50,7 @@ if (isset($_SESSION["ShopperName"])) {
 </style>
 
 <header class="header_section">
-    <nav class="navbar navbar-expand-lg custom_nav-container">
+    <nav class="navbar navbar-expand-lg custom_nav-container" style="padding:0; font-family: Poppins;">
         <div class="container-fluid" style="padding:0;">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

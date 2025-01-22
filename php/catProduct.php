@@ -1,57 +1,61 @@
-﻿<?php 
+﻿<?php
 session_start(); // Detect the current session
 include("header.php"); // Include the Page Layout header
 ?>
-<!-- Create a container, 60% width of viewport -->
-<div style='width:60%; margin:auto;'>
-<!-- Display Page Header - Category's name is read 
-     from the query string passed from previous page -->
-<div class="row" style="padding:5px">
-	<div class="col-12">
-		<span class="page-title"><?php echo "$_GET[catName]"; ?></span>
+<!-- Create a container, 80% width of viewport -->
+<div class="container-fluid d-flex flex-column" style="min-height: 100vh;">
+	<!-- Centered Content with Enhanced Spacing -->
+	<div class="content-area flex-grow-1" style="width:80%; margin:auto; margin-top:80px; margin-bottom:80px;">
+		<!-- Display Page Header - Category's name -->
+		<div class="row text-center mb-5">
+			<div class="col-12">
+				<h2 class="page-title" style="font-size: 36px; font-weight: bold;"><?php echo "$_GET[catName]"; ?></h2>
+			</div>
+		</div>
+
+		<?php
+		// Include the PHP file that establishes database connection handle: $conn
+		include_once("mysql_conn.php");
+
+		$cid = $_GET["cid"]; // Read Category ID from query string
+		// Form SQL to retrieve list of products associated with the Category ID 
+		$qry = "SELECT p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity 
+                FROM CatProduct cp 
+                INNER JOIN product p ON cp.ProductID = p.ProductID 
+                WHERE cp.CategoryID = ?";
+		$stmt = $conn->prepare($qry);
+		$stmt->bind_param("i", $cid); // "i" - integer
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$stmt->close();
+
+		// Start product grid
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+
+		// Display each product as a card
+		while ($row = $result->fetch_array()) {
+			$product = "productDetails.php?pid=$row[ProductID]";
+			$formattedPrice = number_format($row["Price"], 2);
+			$img = "../Images/Products/$row[ProductImage]";
+
+			echo "<div class='col'>"; // Start of card column
+			echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+			echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+			echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+			echo "          <div class='card-body text-center'>";
+			echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
+			echo "              <p class='card-text' style='font-weight:bold; color:red;'>S$ $formattedPrice</p>";
+			echo "          </div>";
+			echo "      </div>"; // End of card
+			echo "  </a>";
+			echo "</div>"; // End of card column
+		}
+
+		echo "</div>"; // End of product grid
+		
+		$conn->close(); // Close database connection
+		?>
 	</div>
+	<!-- Footer -->
+	<?php include("footer.php"); ?>
 </div>
-
-<?php 
-// Include the PHP file that establishes database connection handle: $conn
-include_once("mysql_conn.php");
-
-
-$cid=$_GET["cid"]; // Read Category ID from query string
-// Form SQL to retrieve list of products associated to the Category ID 
-$qry= "SELECT p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity 
-		FROM CatProduct cp INNER JOIN product p ON cp.ProductID=p.ProductID 
-		WHERE cp.CategoryID=?" ;
-$stmt = $conn->prepare($qry);
-$stmt->bind_param("i", $cid); // "i" - integer
-$stmt->execute();
-$result = $stmt->get_result();
-$stmt->close();
-
-// Display each product in a row
-while ($row = $result->fetch_array()) {
-	echo "<div class='row' style='padding:5px'>"; // Start a new row
-	
-	// Left column - display a text link showing the product's name, 
-	//               display the selling price in red in a new paragraph
-	$product = "productDetails.php?pid=$row[ProductID]";
-	$formattedPrice = number_format($row["Price"], 2); 
-	echo "<div class='col-8'>"; //67% of row width
-	echo "<p><a href=$product>$row[ProductTitle]</a></p>"; 
-	echo "Price:<span style='font-weight: bold; color: red;'> 
-		  S$ $formattedPrice</span>";
-	echo "</div>";
-
-	// Right column - display the product's image 
-	$img = "../Images/Products/$row[ProductImage]"; 
-	echo "<div class='col-4'>"; //33% of row width 
-	echo "<img src='$img' style='height: 60px'/>";
-	echo "</div>";
-
-	echo "</div>"; // End of a row
-}
-
-$conn->close(); // Close database connnection
-echo "</div>"; // End of container
-include("footer.php"); // Include the Page Layout footer
-?>

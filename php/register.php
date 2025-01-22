@@ -33,71 +33,69 @@ include("header.php");
     }
 </script>
 
-<div style="width:80%; margin:auto;">
-    <form name="register" action="addMember.php" method="post"
-        onsubmit="return validateForm()">
-        <div class="mb-3 row">
-            <div class="col-sm-9 offset-sm-3">
-                <span class="page-title">Membership Registration</span>
+<!-- Registration Form -->
+<div class="d-flex justify-content-center align-items-center"
+    style="min-height: 100vh; background-color: #fcfcfc; padding: 50px 0;">
+    <div class="registration-form p-4"
+        style="background: #ffffff; width: 90%; max-width: 900px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <h3 class="text-center mb-4" style="color: #8d695b; font-weight: bold;">Membership Registration</h3>
+        <form name="register" action="addMember.php" method="post" onsubmit="return validateForm()">
+            <div class="row">
+                <!-- Name -->
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label" style="color: #8d695b;">Name:</label>
+                    <input type="text" name="name" id="name" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
+                <!-- Email -->
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label" style="color: #8d695b;">Email Address:</label>
+                    <input type="email" name="email" id="email" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="name">Name:</label>
-            <div class="col-sm-9">
-                <input class="form-control" name="name" id="name"
-                    type="text" required /> (required)
+            <div class="row">
+                <!-- Address -->
+                <div class="col-md-6 mb-3">
+                    <label for="address" class="form-label" style="color: #8d695b;">Address:</label>
+                    <textarea name="address" id="address" class="form-control" rows="3"></textarea>
+                </div>
+                <!-- Country -->
+                <div class="col-md-6 mb-3">
+                    <label for="country" class="form-label" style="color: #8d695b;">Country:</label>
+                    <input type="text" name="country" id="country" class="form-control" />
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="address">Address:</label>
-            <div class="col-sm-9">
-                <textarea class="form-control" name="address" id="address"
-                    cols="25" rows="4"></textarea>
+            <div class="row">
+                <!-- Phone -->
+                <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label" style="color: #8d695b;">Phone:</label>
+                    <input type="text" name="phone" id="phone" class="form-control" />
+                </div>
+                <!-- Password -->
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="form-label" style="color: #8d695b;">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="country">Country:</label>
-            <div class="col-sm-9">
-                <input class="form-control" name="country" id="country" type="text" />
+            <div class="row">
+                <!-- Retype Password -->
+                <div class="col-md-6 mb-3">
+                    <label for="password2" class="form-label" style="color: #8d695b;">Retype Password:</label>
+                    <input type="password" name="password2" id="password2" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="phone">Phone:</label>
-            <div class="col-sm-9">
-                <input class="form-control" name="phone" id="phone" type="text" />
+            <!-- Register Button -->
+            <div class="text-center mt-3">
+                <button type="submit" class="btn"
+                    style="background-color: #8d695b; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Register</button>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="email">
-                Email Address:</label>
-            <div class="col-sm-9">
-                <input class="form-control" name="email" id="email"
-                    type="email" required /> (required)
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="password">
-                Password:</label>
-            <div class="col-sm-9">
-                <input class="form-control" name="password" id="password"
-                    type="password" required /> (required)
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="password2">
-                Retype Password:</label>
-            <div class="col-sm-9">
-                <input class="form-control" name="password2" id="password2"
-                    type="password" required /> (required)
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <div class="col-sm-9 offset-sm-3">
-                <button class='btn btn-primary btn-sm' type="submit">Register</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
+
 <?php
 // Include the Page Layout footer
 include("footer.php");

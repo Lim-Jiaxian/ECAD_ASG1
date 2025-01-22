@@ -67,7 +67,7 @@ span {
 	padding: 5px 25px;
 	color: #8d695b;
 	text-align: center;
-	text-transform: uppercase;
+	text-transform: none;
 	border-radius: 5px;
   }
   
@@ -102,7 +102,7 @@ span {
 	font-size: 28px;
 	font-weight: bold;
 	color: #000000;
-	text-transform: uppercase;
+	text-transform: none;
 	margin: 0;
 	padding: 0;
   }

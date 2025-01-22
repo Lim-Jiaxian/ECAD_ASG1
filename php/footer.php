@@ -7,7 +7,7 @@ $config = include(__DIR__ . "/../config.php");
 <footer class="text-center text-lg-start bg-body-tertiary text-muted" style="padding:0;">
 
     <!-- Section: Links  -->
-    <section class="footer-color">
+    <section class="footer-color" style="font-family: Poppins;">
         <div class="container text-center text-md-start mt-5">
             <!-- Grid row -->
             <div class="row mt-3">
@@ -30,13 +30,13 @@ $config = include(__DIR__ . "/../config.php");
                         Product Category
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Baby Clothing</a>
+                        <a href="#!" class="text-reset" style="text-decoration: none;">Baby Clothing</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Baby Gear</a>
+                        <a href="#!" class="text-reset" style="text-decoration: none;">Baby Gear</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Bathing and Grooming</a>
+                        <a href="#!" class="text-reset" style="text-decoration: none;">Bathing and Grooming</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -48,16 +48,16 @@ $config = include(__DIR__ . "/../config.php");
                         Useful links
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Shipping</a>
+                        <a href="#!" class="text-reset" style="text-decoration: none;">Shipping</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Delivery & Returns</a>
+                        <a href="#!" class="text-reset" style="text-decoration: none;">Delivery & Returns</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Help</a>
+                        <a href="#!" class="text-reset" style="text-decoration: none;">Help</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Privacy Policy</a>
+                        <a href="#!" class="text-reset" style="text-decoration: none;">Privacy Policy</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -82,7 +82,7 @@ $config = include(__DIR__ . "/../config.php");
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: #8c685c;
-    color: white;">
+    color: white; font-family: Poppins;">
         littlewonders © 2025. All Rights Reserved.
     </div>
     <!-- Copyright -->
