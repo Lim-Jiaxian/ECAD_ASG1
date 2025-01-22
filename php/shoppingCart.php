@@ -65,7 +65,7 @@ function getTaxRate($conn, $currentDate)
                         <div class='col-12'>
                             <div class='p-5'>
                                 <div class='d-flex justify-content-between align-items-center mb-5'>
-                                    <h1 class='fw-bold mb-0 text-black'>Shopping Cart</h1>
+                                    <h1 class='fw-bold mb-0' style="color:#8d695b">Shopping Cart</h1>
                                 </div>
                                 <hr class='my-4' />
                                 <?php
