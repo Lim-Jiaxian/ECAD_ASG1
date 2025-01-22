@@ -35,14 +35,24 @@ function getTaxRate($conn, $currentDate)
 {
     $qry = "SELECT TaxRate FROM GST WHERE EffectiveDate <= ? ORDER BY EffectiveDate DESC LIMIT 1";
     $stmt = $conn->prepare($qry);
+
+    if ($stmt === false) {
+        die("Error in query: " . $conn->error); // Optional error handling
+    }
+
     $stmt->bind_param("s", $currentDate);
     $stmt->execute();
+
+    // Initialize $taxRate with a default value
+    $taxRate = 0.0;
+
     $stmt->bind_result($taxRate);
     $stmt->fetch();
     $stmt->close();
 
     return $taxRate;
 }
+
 
 ?>
 
@@ -87,7 +97,7 @@ function getTaxRate($conn, $currentDate)
 
                                         while ($row = $result->fetch_array()) {
                                             $productImage = getProductImage($conn, $row["ProductID"]);
-                                            $img = "./Images/Products/$productImage";
+                                            $img = "../Images/Products/$productImage";
 
 
                                             echo "<div class='row mb-4 d-flex justify-content-between align-items-center'>";
@@ -136,7 +146,7 @@ function getTaxRate($conn, $currentDate)
                                             echo "<form action='cartFunctions.php' method='post'>";
                                             echo "<input type='hidden' name='action' value='remove'/>";
                                             echo "<input type='hidden' name='product_id' value='$row[ProductID]'/>";
-                                            echo "<input type='image' src='Images/delete.png' title='Remove Item' style='width:25px; height:25px'/>";
+                                            echo "<input type='image' src='../Images/delete.png' title='Remove Item' style='width:25px; height:25px'/>";
                                             echo "</form>";
                                             echo "</div>";
                                             echo "</div>";
@@ -145,27 +155,27 @@ function getTaxRate($conn, $currentDate)
                                         }
 
 
-                                        echo "</div>"; // End of the container
-                                        echo "</div>"; // End of card-body
-                                        echo "</div>"; // End of card
-                                        echo "</div>"; // End of col-lg-8
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "</div>";
                                     } else {
                                         echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
-                                        echo "</div>"; // End of container when the cart is empty
-                                        echo "</div>"; // End of card-body when the cart is empty
-                                        echo "</div>"; // End of card when the cart is empty
                                         echo "</div>";
-                                        $conn->close(); // Close the database connection
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        $conn->close();
                                     }
 
                                 } else {
                                     echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
-                                    echo "</div>"; // End of container when the cart is empty
-                                    echo "</div>"; // End of card-body when the cart is empty
-                                    echo "</div>"; // End of card when the cart is empty
                                     echo "</div>";
-                                    $conn->close(); // Close the database connection
-                                
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    $conn->close();
+
                                 }
                                 ?>
 
@@ -186,24 +196,31 @@ function getTaxRate($conn, $currentDate)
                             </div>
 
                             <?php
+                            $currentDate = date("Y-m-d");
+                            $taxRate = getTaxRate($conn, $currentDate);
+                            $taxAmount = ($subTotal * $taxRate) / 100;
+
+                            echo "<div class='d-flex justify-content-between mb-4'>
+            <h5 class='text-uppercase'>Tax</h5>
+            <h5>$" . number_format($taxAmount, 2) . "</h5>
+        </div>";
+
                             if ($subTotal > 200) {
                                 $row["ShipCharge"] = 0;
                                 echo "<div class='d-flex justify-content-between mb-4'>
-								<h5 class='text-uppercase'>Shipping</h5>
-								<h5>Free</h5>
-							</div>"; // Adjust the text accordingly
+                <h5 class='text-uppercase'>Shipping</h5>
+                <h5>Free</h5>
+            </div>";
                             } else {
-
                                 echo "<h5 class='text-uppercase mb-3'>Shipping</h5>
-							<div class='mb-4 pb-2'>
-								<form method='post' action='shoppingCart.php'>";
+            <div class='mb-4 pb-2'>
+                <form method='post' action='shoppingCart.php'>";
                                 echo "<select class='form-control' name='shipping_option' onChange='this.form.submit()'>
-								<option value='standard' " . (isset($_POST["shipping_option"]) == 'standard' ? 'selected' : '') . ">Standard Delivery (Next Day)  - $5.00</option>
-								<option value='express' " . (isset($_POST["shipping_option"]) == 'express' ? 'selected' : '') . ">Express Delivery (2 hours) - $10.00</option>
-
-							</select>
-							</form>
-						</div>";
+                <option value='standard' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'standard' ? 'selected' : '') . ">Standard Delivery (Next Day)  - $5.00</option>
+                <option value='express' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'express' ? 'selected' : '') . ">Express Delivery (2 hours) - $10.00</option>
+            </select>
+            </form>
+        </div>";
 
                                 // Set the shipping charge based on the selected option
                                 if (isset($_POST["shipping_option"])) {
@@ -217,16 +234,6 @@ function getTaxRate($conn, $currentDate)
                                 }
                             }
 
-                            $currentDate = date("Y-m-d");
-                            $taxRate = getTaxRate($conn, $currentDate);
-                            $taxAmount = ($subTotal * $taxRate) / 100;
-
-
-                            echo "<div class='d-flex justify-content-between mb-4'>
-						<h5 class='text-uppercase'>Tax</h5>
-						<h5>$" . number_format($taxAmount, 2) . "</h5>
-						</div>";
-
                             $_SESSION["SubTotal"] = $subTotal;
                             $_SESSION["Tax"] = $taxAmount;
                             $_SESSION["ShipCharge"] = $row["ShipCharge"];
@@ -234,7 +241,6 @@ function getTaxRate($conn, $currentDate)
 
                             // Update session subtotal including shipping fee
                             $_SESSION["FinalTotal"] = round($totalWithShipping, 2);
-                            // Include the Page Layout footer
                             ?>
                             <hr class='my-4' />
                             <div class='d-flex justify-content-between mb-5'>
@@ -248,6 +254,7 @@ function getTaxRate($conn, $currentDate)
                             ?>
                         </div>
                     </div>
+
                 </div>
 
             </div>
