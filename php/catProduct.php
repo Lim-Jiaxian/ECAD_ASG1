@@ -22,7 +22,7 @@ $cid=$_GET["cid"]; // Read Category ID from query string
 $qry= "SELECT p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity 
 		FROM CatProduct cp INNER JOIN product p ON cp.ProductID=p.ProductID 
 		WHERE cp.CategoryID=?" ;
-$stmt = $conn->prepare($qry);
+$stmt = $conn->prepare(query: $qry);
 $stmt->bind_param("i", $cid); // "i" - integer
 $stmt->execute();
 $result = $stmt->get_result();
