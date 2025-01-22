@@ -1,48 +1,52 @@
-﻿<?php 
+﻿<?php
 session_start(); // Detect the current session
 include("header.php"); // Include the Page Layout header
 ?>
+
+
 <!-- Create a container, 60% width of viewport -->
-<div style="width:60%; margin:auto;">
-<!-- Display Page Header -->
-<div class="row" style="padding:5px"> <!-- Start of header row -->
-    <div class="col-12">
-        <span class="page-title">Product Categories</span>
-        <p>Select a category listed below:</p>
-    </div>
-</div> <!-- End of header row -->
+<div style="width:60%; margin:auto; margin-top:5%; margin-bottom:5%;">
+    <!-- Display Page Header -->
+    <div class="row" style="padding:5px"> <!-- Start of header row -->
+        <div class="col-12">
+            <span class="page-title">Product Categories</span>
+            <p>Select a category listed below:</p>
+        </div>
+    </div> <!-- End of header row -->
 
-<?php 
-// Include the PHP file that establishes database connection handle: $conn
-include_once("mysql_conn.php");
+    <?php
+    // Include the PHP file that establishes database connection handle: $conn
+    include_once("mysql_conn.php");
 
-$qry = "SELECT * FROM Category"; // Form SQL to select all categories 
-$result = $conn->query($qry); // Execute the SQL and get the result
+    $qry = "SELECT * FROM Category"; // Form SQL to select all categories 
+    $result = $conn->query($qry); // Execute the SQL and get the result
+    
+    // Display each category in a row
+    while ($row = $result->fetch_array()) {
+        echo "<div class='row' style='padding:5px'>"; // Start a new row
+    
+        // Left column - display a text link showing the category's name, 
+        //               display category's description in a new paragraph
+        $catname = urlencode($row["CatName"]);
+        $catproduct = "catProduct.php?cid=$row[CategoryID]&catName=$catname";
+        echo "<div class='col-8'>"; //67% of row width
+        echo "<p><a href=$catproduct>$row[CatName]</a></p>";
+        echo "$row[CatDesc]";
+        echo "</div>";
 
-// Display each category in a row
-while ($row = $result->fetch_array()) {
-    echo "<div class='row' style='padding:5px'>"; // Start a new row
+        // Right column display the category's image 
+        $img = "..//Images/Category/$row[CatImage]";
+        echo "<div class='col-4'>"; //33% of row width 
+        echo "<img src='$img' style='height: 60px'/>";
+        echo "</div>";
 
-    // Left column - display a text link showing the category's name, 
-    //               display category's description in a new paragraph
-    $catname = urlencode($row["CatName"]);
-    $catproduct = "catProduct.php?cid=$row[CategoryID]&catName=$catname"; 
-    echo "<div class='col-8'>"; //67% of row width
-    echo "<p><a href=$catproduct>$row[CatName]</a></p>"; 
-    echo "$row[CatDesc]";
-    echo "</div>";
-
-    // Right column display the category's image 
-    $img = "..//Images/Category/$row[CatImage]";
-    echo "<div class='col-4'>"; //33% of row width 
-    echo "<img src='$img' style='height: 60px'/>";
-    echo "</div>";
-
-    echo "</div>"; // End of a row
-}
+        echo "</div>"; // End of a row
+    }
 
 
-$conn->close(); // Close database connnection
-echo "</div>"; // End of container
-include("footer.php"); // Include the Page Layout footer
-?>
+    $conn->close(); // Close database connnection
+    echo "</div>"; // End of container
+    ?>
+</div>
+
+<?php include("footer.php"); ?>

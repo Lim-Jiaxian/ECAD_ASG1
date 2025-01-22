@@ -7,11 +7,13 @@ $config = include("config.php");
 include("php/header.php");
 ?>
 
-<html>
+<div class="container-fluid d-flex flex-column" style="min-height: 100vh; padding: 0;">
+    <!-- Main Content Area -->
+    <div class="main-content flex-grow-1" style="padding: 20px;">
+        <h1>Welcome to Little Wonders</h1>
+        <p>This is your homepage content.</p>
+    </div>
 
-</html>
-
-<?php
-// Include the Page Layout footer
-include("php/footer.php");
-?>
+    <!-- Footer -->
+    <?php include("php/footer.php"); ?>
+</div>
