@@ -4,6 +4,7 @@
 include_once("cartFunctions.php");
 include("header.php"); // Include the Page Layout header
 
+$totalQuantity = 0; //Initialise total quantity variable
 function getProductImage($conn, $productID)
 {
     $qry = "SELECT ProductImage FROM Product WHERE ProductID = ?";
