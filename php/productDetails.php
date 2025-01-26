@@ -37,6 +37,7 @@ include("header.php"); // Include the Page Layout header
             // Right Column - Product Details
             echo "<div class='col-lg-6 col-md-6'>";
             if($row["Offered"] == 1){
+                // Products with offer prices
                 echo "
                     <div style='
                         background-color: #ffe6e6;
@@ -53,6 +54,46 @@ include("header.php"); // Include the Page Layout header
                         <i class='fa-solid fa-fire'></i>
                         Product currently on offer
                         <i class='fa-solid fa-fire'></i>
+                    </div>
+                ";
+            }else if ($row["Quantity"] < 1){
+                // Products unavailable and out of stock
+                echo "
+                    <div style='
+                        background-color: #ffe6e6;
+                        border: 2px solid #ff4d4d;
+                        color: #ff4d4d;
+                        font-weight: bold;
+                        font-size: 24px;
+                        text-align: center;
+                        padding: 10px 20px;
+                        margin-top: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                    '>
+                        <i class='fa-solid fa-ban'></i>
+                        Product Out Of Stock
+                        <i class='fa-solid fa-ban'></i>
+                    </div>
+                ";
+            }else{
+                // Normal products available for purchase
+                echo "
+                    <div style='
+                        background-color: #d4edda; 
+                        border: 2px solid #155724; 
+                        color: #155724; 
+                        font-weight: bold;
+                        font-size: 24px;
+                        text-align: center;
+                        padding: 10px 20px;
+                        margin-top: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                    '>
+                        <i class='fa-solid fa-cart-arrow-down'></i>
+                        Product Available
+                        <i class='fa-solid fa-cart-arrow-down'></i>
                     </div>
                 ";
             }
@@ -111,7 +152,7 @@ include("header.php"); // Include the Page Layout header
                 echo "    <form action='cartFunctions.php' method='post' class='mt-4'>";
                 echo "        <input type='hidden' name='action' value='add' />";
                 echo "        <input type='hidden' name='product_id' value='$pid' />";
-                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Price: S$ $formattedPrice</h4>";
+                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Price: S$ $formattedPrice</h4><br>";
                 echo "        <label for='quantity' style='font-size: 16px;'>Quantity:</label>";
                 echo "        <input type='number' name='quantity' value='1' min='1' max='10' style='width: 60px; margin-left: 10px; margin-right: 20px;' required />";
                 echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart</button>";
