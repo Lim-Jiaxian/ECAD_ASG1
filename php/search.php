@@ -6,20 +6,34 @@ include("header.php"); // Include the Page Layout header
 <!-- HTML Form to collect search keyword and submit it to the same page in server -->
 <div style="width:80%; margin:auto;"> <!-- Container -->
 <form name="frmSearch" method="get" action="">
+    <br>
     <div class="mb-3 row"> <!-- 1st row -->
-        <div class="col-sm-9 offset-sm-3">
+        <div class="col-12 col-md-6 offset-md-3 text-center">
             <span class="page-title">Product Search</span>
         </div>
     </div> <!-- End of 1st row -->
     <div class="mb-3 row"> <!-- 2nd row -->
-        <label for="keywords" 
-               class="col-sm-3 col-form-label">Product Title:</label>
+        <label for="keywords" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-6">
-            <input class="form-control" name="keywords" id="keywords" 
-                   type="search" />
+            <input class="form-control" name="keywords" id="keywords" type="search" placeholder="Enter product title or description" />
         </div>
         <div class="col-sm-3">
-            <button class='btn btn-primary btn-sm' type="submit">Search</button>
+            <button 
+                class="btn btn-sm" 
+                type="submit" 
+                style="
+                    background-color: #8d695b; /* Button background color */
+                    color: #f9ece6; /* Button text color */
+                    border: 1px solid #8d695b; /* Optional: matching border */
+                    padding: 8px 16px; /* Adjust padding for better appearance */
+                    font-size: 14px; /* Adjust font size for small button */
+                    border-radius: 5px; /* Rounded corners */
+                    cursor: pointer; /* Pointer cursor on hover */
+                    transition: all 0.3s ease; /* Smooth hover effect */"
+                onmouseover="this.style.backgroundColor='#f9ece6'; this.style.color='#8d695b';"
+                onmouseout="this.style.backgroundColor='#8d695b'; this.style.color='#f9ece6';">
+                Search
+            </button>
         </div>
     </div>  <!-- End of 2nd row -->
 </form>
