@@ -114,36 +114,70 @@ include("php/header.php");
             padding: 10px 20px;
             margin-top: 20px;
             border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        '>
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);'>
             <i class='fa-solid fa-fire'></i>
             Promotional Products
             <i class='fa-solid fa-fire'></i>
         </div>";
-		// Start product grid
-		echo "<br><br><div class='row row-cols-1 row-cols-md-3 g-4'>";
-		// Display each product as a card
-		while ($row = $result->fetch_array()) {
-			$product = "./php/productDetails.php?pid=$row[ProductID]";
-			$formattedPrice = number_format($row["Price"], 2);
-			$img = "./Images/Products/$row[ProductImage]";
 
-			echo "<div class='col'>"; // Start of card column
-			echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-			echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-			echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-			echo "          <div class='card-body text-center'>";
-			echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
-			echo "              <p class='card-text' style='font-weight:bold; color:black;'><del>S$ $formattedPrice</del></p>";
-            echo "              <p class='card-text' style='font-weight:bold; color:red;'>S$ $row[OfferedPrice]</p>";
-			echo "          </div>";
-			echo "      </div>"; // End of card
-			echo "  </a>";
-			echo "</div>"; // End of card column
-		}
-		echo "</div>"; // End of product grid
-		$conn->close(); // Close database connection
-        echo "<br>";
+		// Bootstrap carousel
+        echo "<div id='productCarousel' class='carousel slide' data-bs-ride='carousel'>";
+        echo "  <div class='carousel-inner'>";
+
+        // Counter to group items
+        $counter = 0;
+        $active = true;
+
+        while ($row = $result->fetch_array()) {
+            $product = "./php/productDetails.php?pid=$row[ProductID]";
+            $formattedPrice = number_format($row["Price"], 2);
+            $img = "./Images/Products/$row[ProductImage]";
+
+            // Carousel item for every 3 products
+            if ($counter % 3 === 0) {
+                if ($counter > 0) echo "</div></div>"; // Close previous carousel-item and row
+                $activeClass = $active ? 'active' : '';
+                $active = false;
+                echo "<div class='carousel-item $activeClass'>";
+                echo "  <div class='row g-4 justify-content-center'>"; // Start row for 3 items
+            }
+
+            // Product card
+            echo "      <div class='col-md-4'>"; // Each item takes 1/3 of the row
+            echo "          <a href='$product' style='text-decoration: none; color: inherit;'>";
+            echo "              <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+            echo "                  <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+            echo "                  <div class='card-body text-center'>";
+            echo "                      <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
+            echo "                      <p class='card-text' style='font-weight:bold; color:black;'><del>S$ $formattedPrice</del></p>";
+            echo "                      <p class='card-text' style='font-weight:bold; color:red;'>S$ $row[OfferedPrice]</p>";
+            echo "                  </div>";
+            echo "              </div>";
+            echo "          </a>";
+            echo "      </div>";
+
+            $counter++;
+        }
+
+        if ($counter > 0) echo "</div></div>"; // Close last row and carousel-item
+
+        echo "  </div>"; // End of carousel-inner
+
+        // Carousel controls
+        echo "  <button class='carousel-control-prev' type='button' data-bs-target='#productCarousel' data-bs-slide='prev'>";
+        echo "      <span class='carousel-control-prev-icon' aria-hidden='true'></span>";
+        echo "      <span class='visually-hidden'>Previous</span>";
+        echo "  </button>";
+        echo "  <button class='carousel-control-next' type='button' data-bs-target='#productCarousel' data-bs-slide='next'>";
+        echo "      <span class='carousel-control-next-icon' aria-hidden='true'></span>";
+        echo "      <span class='visually-hidden'>Next</span>";
+        echo "  </button>";
+        echo "</div>"; // End of carousel
+        echo "<br>"; 
+        echo "<br>"; 
+
+        $conn->close(); // Close database connection
+
         // Footer
         include("php/footer.php"); 
 	?>
