@@ -374,6 +374,10 @@ a:focus {
 /* Order confirmation page */
 #order-confirmation {
 	padding: 2rem;
+	width: max-content;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	margin: 1rem auto;
 }
 
 #order-confirmation h3 {
