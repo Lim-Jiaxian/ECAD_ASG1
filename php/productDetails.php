@@ -127,12 +127,11 @@ include("header.php"); // Include the Page Layout header
                 echo "    <form action='cartFunctions.php' method='post' class='mt-4'>";
                 echo "        <input type='hidden' name='action' value='add' />";
                 echo "        <input type='hidden' name='product_id' value='$pid' />";
-                
                 echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Previous Price: <del>S$ $formattedPrice</del></h4>";
                 echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'> <i class='fa-solid fa-fire'></i> Offer Price Now: S$ $offerPrice <i class='fa-solid fa-fire'></i></h4><br>";
                 echo "        <label for='quantity' style='font-size: 16px;'>Quantity:</label>";
                 echo "        <input type='number' name='quantity' value='1' min='1' max='10' style='width: 60px; margin-left: 10px; margin-right: 20px;' required />";
-                echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart</button>";
+                echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart <i class='fa-solid fa-cart-arrow-down'></i></button>";
                 echo "    </form>";
                 echo "</div>"; // End of Right Column
                 echo "</div>"; // End of Row
@@ -155,7 +154,7 @@ include("header.php"); // Include the Page Layout header
                 echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Price: S$ $formattedPrice</h4><br>";
                 echo "        <label for='quantity' style='font-size: 16px;'>Quantity:</label>";
                 echo "        <input type='number' name='quantity' value='1' min='1' max='10' style='width: 60px; margin-left: 10px; margin-right: 20px;' required />";
-                echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart</button>";
+                echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart <i class='fa-solid fa-cart-arrow-down'></i></button>";
                 echo "    </form>";
                 echo "</div>"; // End of Right Column
                 echo "</div>"; // End of Row
