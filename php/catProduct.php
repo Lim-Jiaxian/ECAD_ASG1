@@ -44,7 +44,7 @@ include("header.php"); // Include the Page Layout header
 			echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
 			echo "          <div class='card-body text-center'>";
 			echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
-			echo "              <p class='card-text' style='font-weight:bold; color:red;'>S$ $formattedPrice</p>";
+			echo "              <p class='card-text' style='font-weight:bold; color:black;'>S$ $formattedPrice</p>";
 			echo "          </div>";
 			echo "      </div>"; // End of card
 			echo "  </a>";

@@ -117,7 +117,7 @@ include("php/header.php");
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         '>
             <i class='fa-solid fa-fire'></i>
-            Product currently on offer
+            Promotional Products
             <i class='fa-solid fa-fire'></i>
         </div>";
 		// Start product grid

@@ -5,12 +5,12 @@ include("header.php"); // Include the Page Layout header
 
 <!-- Create a container for the centered layout -->
 <div
-    style="width:60%; margin:auto; margin-top:50px; margin-bottom:50px; padding:30px; background-color:#ffffff; border-radius:10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    style="width:60%; margin:auto; margin-top:50px; margin-bottom:50px; padding:30px; background-color:#f9ece6; border-radius:10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
     <!-- Display Page Header -->
     <div class="row mb-4 text-center"> <!-- Centered header row -->
         <div class="col-12">
             <h2 class="page-title">Product Categories</h2>
-            <p class="text-muted">Select a category listed below:</p>
+            <p class="text-muted">Select a category listed below to view more</p>
         </div>
     </div>
 
@@ -24,23 +24,23 @@ include("header.php"); // Include the Page Layout header
     // Display each category in a row
     while ($row = $result->fetch_array()) {
         echo "<div class='row mb-4 align-items-center' style='padding:5px;'>"; // Start a new row
-    
-        // Left column - display a text link showing the category's name, 
-        //               display category's description in a new paragraph
+
         $catname = urlencode($row["CatName"]);
         $catproduct = "catProduct.php?cid=$row[CategoryID]&catName=$catname";
-        echo "<div class='col-md-8'>"; // Text section (67% width)
-        echo "<h5><a href='$catproduct' style='color:#8d695b; text-decoration:none;'>$row[CatName]</a></h5>";
-        echo "<p class='text-muted'>$row[CatDesc]</p>";
-        echo "</div>";
-
-        // Right column - display the category's image 
         $img = "..//Images/Category/$row[CatImage]";
-        echo "<div class='col-md-4 text-center'>"; // Image section (33% width)
-        echo "<img src='$img' style='max-height:100px; max-width:100%;' alt='$row[CatName]' />";
-        echo "</div>";
 
-        echo "</div>"; // End of a row
+        echo "<div class='col'>"; // Start of card column
+        echo "  <a href='$catproduct' style='text-decoration: none; color: inherit;'>";
+        echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+        echo "          <img src='$img' class='card-img-top' alt='$row[CatName]' style='height: 200px; object-fit: contain;'>";
+        echo "          <div class='card-body text-center'>";
+        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[CatName]</h5>";
+        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[CatDesc]</h5>";
+        echo "          </div>";
+        echo "      </div>"; // End of card
+        echo "  </a>";
+        echo "</div>"; // End of card column
+        echo "</div>";
     }
 
     $conn->close(); // Close database connection
