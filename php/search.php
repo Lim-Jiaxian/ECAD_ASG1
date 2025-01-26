@@ -16,6 +16,10 @@ include("header.php"); // Include the Page Layout header
         <label for="keywords" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-6">
             <input class="form-control" name="keywords" id="keywords" type="search" placeholder="Enter product title or description" />
+            <input type="radio" id="productOffer" name="productOffer">
+            <label for="productOffer">Product name or description with offers</label><br>
+            <input type="radio" id="productPrice" name="productPrice">
+            <label for="productPrice">Product price lower or equal to</label><br>
         </div>
         <div class="col-sm-3">
             <button 
@@ -41,40 +45,137 @@ include("header.php"); // Include the Page Layout header
 <?php
 // Include the PHP file that establishes database connection handle: $conn
 include_once("mysql_conn.php"); 
-// The non-empty search keyword is sent to server
-if (isset($_GET["keywords"]) && trim($_GET['keywords']) != "") { 
-    // Retrieve list of product records with "ProductTitle" 
-	// contains the keyword entered by shopper, and display them in a table.
 
-    $keyword = $_GET['keywords'];
-    // SQL statement with a LIKE query to find user input search
-    $qry = "SELECT ProductID, ProductTitle FROM product WHERE ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle";
-    $stmt = $conn->prepare($qry);
-    $likeKeyword = '%'.$keyword.'%';
-    $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
-    $stmt->execute();
-    $result = $stmt->get_result(); 
-    // Close statement and connection
-    $stmt->close();
-    $conn->close();
+if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+    if (isset($_GET['productOffer'])) {
+        // Check if the product offer radiobutton is selected
+        // Contains the keyword entered by shopper, and display them in a table
+        $keyword = $_GET['keywords'];
+        // SQL statement with a LIKE query to find user input search
+        $qry = "SELECT ProductID, ProductTitle FROM product WHERE Offered = 1 AND ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle";
+        $stmt = $conn->prepare($qry);
+        $likeKeyword = '%'.$keyword.'%';
+        $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
+        $stmt->execute();
+        $result = $stmt->get_result(); 
+        // Close statement and connection
+        $stmt->close();
+        $conn->close();
 
-    if ($result->num_rows > 0) {
-        // Display results in table
-        echo "<table class='table'>";
-        // Move the search result header above the loop
-        echo "<tr><th>Showing list of products with " . htmlspecialchars($keyword) . " in the product name or description</th></tr>";
-        while ($row = $result->fetch_assoc()) {
-            $product = "productDetails.php?pid=" . $row['ProductID']; 
-            echo "<tr>";
-            // Display search result product titles
-            echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
-            echo "</tr>";
+        if ($result->num_rows > 0) {
+            // Display results in table
+            echo "<table class='table'>";
+            // Move the search result header above the loop
+            echo "<tr><th>Showing list of offered products with " . htmlspecialchars($keyword) . " in the product name or description</th></tr>";
+            while ($row = $result->fetch_assoc()) {
+                $product = "productDetails.php?pid=" . $row['ProductID']; 
+                echo "<tr>";
+                // Display search result product titles
+                echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<p>No offered products found with '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
         }
-        echo "</table>";
-    } else {
-        echo "<p>No products found with '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
+    } else if (isset($_GET['productPrice'])) {
+        // Check if the product price radiobutton is selected
+        // Contains the keyword entered by shopper
+        $keyword = $_GET['keywords'];
+        // SQL statement to pricees lower or equals to user input search
+        $qry = "SELECT ProductID, ProductTitle, Price FROM product WHERE Price <= ? ORDER BY ProductTitle";
+        $stmt = $conn->prepare($qry);
+        $stmt->bind_param("i", $keyword);
+        $stmt->execute();
+        $result = $stmt->get_result(); 
+        // Close statement and connection
+        $stmt->close();
+        $conn->close();
+
+        if ($result->num_rows > 0) {
+            // Display results in table
+            echo "<table class='table'>";
+            // Move the search result header above the loop
+            echo "<tr><th>Showing list of products less than or equal to price of S$ " . htmlspecialchars($keyword) . "</th></tr>";
+            while ($row = $result->fetch_assoc()) {
+                $product = "productDetails.php?pid=" . $row['ProductID']; 
+                echo "<tr>";
+                // Display search result product titles
+                echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<p>No products found with less than or equal to price of S$ '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
+        }
+    } else if (isset($_GET["keywords"]) && trim($_GET['keywords']) != ""){
+        // Retrieve list of product records with "ProductTitle" 
+        // Contains the keyword entered by shopper, and display them in a table
+        $keyword = $_GET['keywords'];
+        // SQL statement with a LIKE query to find user input search
+        $qry = "SELECT ProductID, ProductTitle FROM product WHERE ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle";
+        $stmt = $conn->prepare($qry);
+        $likeKeyword = '%'.$keyword.'%';
+        $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
+        $stmt->execute();
+        $result = $stmt->get_result(); 
+        // Close statement and connection
+        $stmt->close();
+        $conn->close();
+
+        if ($result->num_rows > 0) {
+            // Display results in table
+            echo "<table class='table'>";
+            // Move the search result header above the loop
+            echo "<tr><th>Showing list of products with " . htmlspecialchars($keyword) . " in the product name or description</th></tr>";
+            while ($row = $result->fetch_assoc()) {
+                $product = "productDetails.php?pid=" . $row['ProductID']; 
+                echo "<tr>";
+                // Display search result product titles
+                echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<p>No products found with '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
+        }
     }
 }
+
+
+// // Check for any non-empty search keywords
+// if (isset($_GET["keywords"]) && trim($_GET['keywords']) != "") { 
+//     // Retrieve list of product records with "ProductTitle" 
+// 	// Contains the keyword entered by shopper, and display them in a table
+//     $keyword = $_GET['keywords'];
+//     // SQL statement with a LIKE query to find user input search
+//     $qry = "SELECT ProductID, ProductTitle FROM product WHERE ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle";
+//     $stmt = $conn->prepare($qry);
+//     $likeKeyword = '%'.$keyword.'%';
+//     $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
+//     $stmt->execute();
+//     $result = $stmt->get_result(); 
+//     // Close statement and connection
+//     $stmt->close();
+//     $conn->close();
+
+//     if ($result->num_rows > 0) {
+//         // Display results in table
+//         echo "<table class='table'>";
+//         // Move the search result header above the loop
+//         echo "<tr><th>Showing list of products with " . htmlspecialchars($keyword) . " in the product name or description</th></tr>";
+//         while ($row = $result->fetch_assoc()) {
+//             $product = "productDetails.php?pid=" . $row['ProductID']; 
+//             echo "<tr>";
+//             // Display search result product titles
+//             echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
+//             echo "</tr>";
+//         }
+//         echo "</table>";
+//     } else {
+//         echo "<p>No products found with '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
+//     }
+// }
 
 echo "</div>"; // End of container
 include("footer.php"); // Include the Page Layout footer
