@@ -96,7 +96,7 @@ include("php/header.php");
 		include_once("./php/mysql_conn.php");
 
 		// SQL statement to retrieve list of offered products
-		$qry = "SELECT ProductID, ProductTitle, ProductImage, Price, Quantity FROM product WHERE Offered = 1";
+		$qry = "SELECT ProductID, ProductTitle, ProductImage, Price, OfferedPrice, Quantity FROM product WHERE Offered = 1";
 		$stmt = $conn->prepare($qry);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -134,7 +134,8 @@ include("php/header.php");
 			echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
 			echo "          <div class='card-body text-center'>";
 			echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
-			echo "              <p class='card-text' style='font-weight:bold; color:red;'>S$ $formattedPrice</p>";
+			echo "              <p class='card-text' style='font-weight:bold; color:black;'><del>S$ $formattedPrice</del></p>";
+            echo "              <p class='card-text' style='font-weight:bold; color:red;'>S$ $row[OfferedPrice]</p>";
 			echo "          </div>";
 			echo "      </div>"; // End of card
 			echo "  </a>";
