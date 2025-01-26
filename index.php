@@ -27,7 +27,7 @@ include("php/header.php");
                                             <p>
                                                 We are having sales from 1 Feb to 21 Feb!
                                             </p>
-                                            <a href="category.php">
+                                            <a href="./php/category.php">
                                                 Browse shop
                                             </a>
                                         </div>
@@ -91,7 +91,59 @@ include("php/header.php");
 
         <!-- end slider section -->
     </div>
+    <?php
+		// Include the PHP file that establishes database connection handle: $conn
+		include_once("./php/mysql_conn.php");
 
-    <!-- Footer -->
-    <?php include("php/footer.php"); ?>
+		// SQL statement to retrieve list of offered products
+		$qry = "SELECT ProductID, ProductTitle, ProductImage, Price, Quantity FROM product WHERE Offered = 1";
+		$stmt = $conn->prepare($qry);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$stmt->close();
+
+        // Products with offer prices
+        echo "
+        <div style='
+            background-color: #ffe6e6;
+            border: 2px solid #ff4d4d;
+            color: #ff4d4d;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        '>
+            <i class='fa-solid fa-fire'></i>
+            Product currently on offer
+            <i class='fa-solid fa-fire'></i>
+        </div>";
+		// Start product grid
+		echo "<br><br><div class='row row-cols-1 row-cols-md-3 g-4'>";
+		// Display each product as a card
+		while ($row = $result->fetch_array()) {
+			$product = "./php/productDetails.php?pid=$row[ProductID]";
+			$formattedPrice = number_format($row["Price"], 2);
+			$img = "./Images/Products/$row[ProductImage]";
+
+			echo "<div class='col'>"; // Start of card column
+			echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+			echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+			echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+			echo "          <div class='card-body text-center'>";
+			echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
+			echo "              <p class='card-text' style='font-weight:bold; color:red;'>S$ $formattedPrice</p>";
+			echo "          </div>";
+			echo "      </div>"; // End of card
+			echo "  </a>";
+			echo "</div>"; // End of card column
+		}
+		echo "</div>"; // End of product grid
+		$conn->close(); // Close database connection
+        echo "<br>";
+        // Footer
+        include("php/footer.php"); 
+	?>
 </div>

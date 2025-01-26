@@ -72,7 +72,7 @@ include("header.php"); // Include the Page Layout header
                         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
                     '>
                         <i class='fa-solid fa-ban'></i>
-                        Product Out Of Stock
+                        Product Unavailable
                     </div>
                 ";
             }else{
