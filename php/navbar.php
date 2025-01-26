@@ -42,12 +42,8 @@ if (isset($_SESSION["ShopperName"])) {
 }
 ?>
 
-<style>
-    <?php
-    // Link CSS
-    include(__DIR__ . "/../css/site.css");
-    ?>
-</style>
+<link rel="stylesheet" type="text/css" href="<?php echo htmlspecialchars(dirname($_SERVER['PHP_SELF']) . '/../css/site.php'); ?>">
+
 
 <header class="header_section">
     <nav class="navbar navbar-expand-lg custom_nav-container" style="padding:0; font-family: Poppins;">
