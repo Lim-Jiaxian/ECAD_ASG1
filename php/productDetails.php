@@ -36,7 +36,27 @@ include("header.php"); // Include the Page Layout header
 
             // Right Column - Product Details
             echo "<div class='col-lg-6 col-md-6'>";
-            echo "    <p style='font-size: 18px; line-height: 1.8; color: #8d695b;'>Product Description:</p>";
+            if($row["Offered"] == 1){
+                echo "
+                    <div style='
+                        background-color: #ffe6e6;
+                        border: 2px solid #ff4d4d;
+                        color: #ff4d4d;
+                        font-weight: bold;
+                        font-size: 24px;
+                        text-align: center;
+                        padding: 10px 20px;
+                        margin-top: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                    '>
+                        <i class='fa-solid fa-fire'></i>
+                        Product currently on offer
+                        <i class='fa-solid fa-fire'></i>
+                    </div>
+                ";
+            }
+            echo "    <br><p style='font-size: 18px; line-height: 1.8; color: #8d695b;'>Product Description:</p>";
             echo "    <p style='font-size: 18px; line-height: 1.8; color: #8d695b;'>$row[ProductDesc]</p>";
 
             // Product Specifications
@@ -57,32 +77,46 @@ include("header.php"); // Include the Page Layout header
 
             // Product Price
             $formattedPrice = number_format($row["Price"], 2);
-            echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Price: S$ $formattedPrice</h4>";
+            // Product Offer Price
+            $offerPrice = $row["OfferedPrice"];
 
             // Check for the product's quantity
-            if($row["Quantity"] == 1){
+            if($row["Offered"] == 1){
+                // Add to Cart Form
+                echo "    <form action='cartFunctions.php' method='post' class='mt-4'>";
+                echo "        <input type='hidden' name='action' value='add' />";
+                echo "        <input type='hidden' name='product_id' value='$pid' />";
+                
+                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Previous Price: <del>S$ $formattedPrice</del></h4>";
+                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'> <i class='fa-solid fa-fire'></i> Offer Price: S$ $offerPrice <i class='fa-solid fa-fire'></i></h4><br>";
+                echo "        <label for='quantity' style='font-size: 16px;'>Quantity:</label>";
+                echo "        <input type='number' name='quantity' value='1' min='1' max='10' style='width: 60px; margin-left: 10px; margin-right: 20px;' required />";
+                echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart</button>";
+                echo "    </form>";
+                echo "</div>"; // End of Right Column
+                echo "</div>"; // End of Row
 
             }else if ($row["Quantity"] < 1){
                 // Add to Cart Form
                 echo "    <form action='cartFunctions.php' method='post' class='mt-4'>";
                 echo "        <input type='hidden' name='action' value='add' />";
                 echo "        <input type='hidden' name='product_id' value='$pid' />";
+                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Price: S$ $formattedPrice</h4>";
                 echo "        <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Product currently out of stock</h4>";
                 echo "    </form>";
                 echo "</div>"; // End of Right Column
-            
                 echo "</div>"; // End of Row
             }else{
                 // Add to Cart Form
                 echo "    <form action='cartFunctions.php' method='post' class='mt-4'>";
                 echo "        <input type='hidden' name='action' value='add' />";
                 echo "        <input type='hidden' name='product_id' value='$pid' />";
+                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Price: S$ $formattedPrice</h4>";
                 echo "        <label for='quantity' style='font-size: 16px;'>Quantity:</label>";
                 echo "        <input type='number' name='quantity' value='1' min='1' max='10' style='width: 60px; margin-left: 10px; margin-right: 20px;' required />";
                 echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart</button>";
                 echo "    </form>";
                 echo "</div>"; // End of Right Column
-            
                 echo "</div>"; // End of Row
             }
 
