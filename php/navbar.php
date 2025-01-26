@@ -61,6 +61,9 @@ if (isset($_SESSION["ShopperName"])) {
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'category.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/category.php">Product Categories</a>
                     </li>
+                    <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'search.php') ? 'active' : ''; ?>">
+                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/search.php">Search Product</a>
+                    </li>
                 </ul>
 
                 <a class="navbar-brand mx-auto" href="<?= $config->SITE_ROOT ?>/index.php">
