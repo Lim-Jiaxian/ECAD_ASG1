@@ -88,7 +88,7 @@ include("header.php"); // Include the Page Layout header
                 echo "        <input type='hidden' name='product_id' value='$pid' />";
                 
                 echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'>Previous Price: <del>S$ $formattedPrice</del></h4>";
-                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'> <i class='fa-solid fa-fire'></i> Offer Price: S$ $offerPrice <i class='fa-solid fa-fire'></i></h4><br>";
+                echo "    <h4 style='color: red; font-weight: bold; font-size: 24px; margin-top: 20px;'> <i class='fa-solid fa-fire'></i> Offer Price Now: S$ $offerPrice <i class='fa-solid fa-fire'></i></h4><br>";
                 echo "        <label for='quantity' style='font-size: 16px;'>Quantity:</label>";
                 echo "        <input type='number' name='quantity' value='1' min='1' max='10' style='width: 60px; margin-left: 10px; margin-right: 20px;' required />";
                 echo "        <button class='btn btn-primary' type='submit' style='background-color: #8d695b; border: none;'>Add to Cart</button>";
