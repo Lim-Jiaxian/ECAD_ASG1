@@ -73,7 +73,6 @@ include("header.php"); // Include the Page Layout header
                     '>
                         <i class='fa-solid fa-ban'></i>
                         Product Out Of Stock
-                        <i class='fa-solid fa-ban'></i>
                     </div>
                 ";
             }else{
@@ -91,9 +90,8 @@ include("header.php"); // Include the Page Layout header
                         border-radius: 10px;
                         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
                     '>
-                        <i class='fa-solid fa-cart-arrow-down'></i>
+                        <i class='fas fa-check-circle'></i>
                         Product Available
-                        <i class='fa-solid fa-cart-arrow-down'></i>
                     </div>
                 ";
             }
