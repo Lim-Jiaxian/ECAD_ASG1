@@ -189,7 +189,7 @@ function getTaxRate($conn, $currentDate)
 
                     <div class='col-lg-4 bg-grey'>
                         <div class='p-3'>
-                            <h3 class='fw-bold mb-3 mt-2 pt-1'>Summary</h3>
+                            <h3 class='fw-bold mb-3 mt-2 pt-1' style="color: #8d695b;">Summary</h3>
                             <?php
                             // Ensure $totalQuantity is defined
                             
