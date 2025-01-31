@@ -134,4 +134,3 @@ function removeItem()
     header("Location: shoppingCart.php");
     exit;
 }
-?>

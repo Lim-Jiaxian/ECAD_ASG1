@@ -94,12 +94,11 @@ function getTaxRate($conn, $currentDate)
 
                                         $row["ShipCharge"] = 0;
                                         $subTotal = 0;
-
+                                        $_SESSION["Items"] = array(); // Array to store shopping cart items
 
                                         while ($row = $result->fetch_array()) {
                                             $productImage = getProductImage($conn, $row["ProductID"]);
                                             $img = "../Images/Products/$productImage";
-
 
                                             echo "<div class='row mb-4 d-flex justify-content-between align-items-center'>";
                                             echo "<div class='col-md-2 col-lg-2 col-xl-2'>";
@@ -133,9 +132,6 @@ function getTaxRate($conn, $currentDate)
                                                 echo "<h6 class='text-black mb-0'><del>$ " . number_format($row["Price"] * $row["Quantity"], 2) . "</del></h6>";
                                                 echo "<h6 class='text-success mb-0'>$ " . number_format($row["Total"], 2) . "</h6>";
                                                 echo "</div>";
-
-
-
                                             } else {
                                                 $row["Total"] = $row["Price"] * $row["Quantity"];
 
@@ -153,6 +149,14 @@ function getTaxRate($conn, $currentDate)
                                             echo "</div>";
                                             echo "</div>";
 
+                                            // Added by Elizabeth
+                                            $_SESSION["Items"][] = array(
+                                                "productId" => $row["ProductID"],
+                                                "name" => $row["Name"],
+                                                "price" => $row["Offered"] == 1 ? $row["OfferedPrice"] : $row["Price"],
+                                                "quantity" => $row["Quantity"],
+                                            );
+
                                             $subTotal += $row["Total"];
                                         }
 
@@ -169,7 +173,6 @@ function getTaxRate($conn, $currentDate)
                                         echo "</div>";
                                         $conn->close();
                                     }
-
                                 } else {
                                     echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
                                     echo "</div>";
@@ -177,7 +180,6 @@ function getTaxRate($conn, $currentDate)
                                     echo "</div>";
                                     echo "</div>";
                                     $conn->close();
-
                                 }
                                 ?>
 
@@ -192,7 +194,7 @@ function getTaxRate($conn, $currentDate)
                             <h3 class='fw-bold mb-3 mt-2 pt-1' style="color: #8d695b;">Summary</h3>
                             <?php
                             // Ensure $totalQuantity is defined
-                            
+
                             echo "<p style='display: flex; flex-direction: row-reverse;'> Total Items: $totalQuantity</p>";
                             ?>
 
@@ -208,28 +210,31 @@ function getTaxRate($conn, $currentDate)
                                 // Calculate shipping charges
                                 if ($subTotal > 200) {
                                     $row["ShipCharge"] = 0;
+                                    $_SESSION["DeliveryMode"] = "Express";
                                     echo "<div class='d-flex justify-content-between mb-4'>
                         <h5 class='text-uppercase'>Shipping</h5>
-                        <h5>Free <span style='font-size:8pt'> (Express Delivery 2 hours)</span></h5>
+                        <h5>Free <span style='font-size:8pt'> (Express Delivery 24 hours)</span></h5>
                     </div>";
                                 } else {
                                     echo "<h5 class='text-uppercase mb-3'>Shipping</h5>
                 <div class='mb-4 pb-2'>
                     <form method='post' action='shoppingCart.php'>
                         <select class='form-control' name='shipping_option' onChange='this.form.submit()'>
-                            <option value='default' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'default' ? 'selected' : '') . ">Select Delivery Options</option>
-                            <option value='standard' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'standard' ? 'selected' : '') . ">Standard Delivery (Next Day) - $5.00</option>
-                            <option value='express' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'express' ? 'selected' : '') . ">Express Delivery (2 hours) - $10.00</option>
+                            <option value='Default' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'Default' ? 'selected' : '') . ">Select Delivery Options</option>
+                            <option value='Normal' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'Normal' ? 'selected' : '') . ">Standard Delivery (2 Days) - $5.00</option>
+                            <option value='Express' " . (isset($_POST["shipping_option"]) && $_POST["shipping_option"] == 'Express' ? 'selected' : '') . ">Express Delivery (24 hours) - $10.00</option>
                         </select>
                     </form>
                 </div>";
 
                                     // Set shipping charge based on selection
                                     if (isset($_POST["shipping_option"])) {
-                                        if ($_POST["shipping_option"] == "standard") {
+                                        if ($_POST["shipping_option"] == "Normal") {
                                             $row["ShipCharge"] = 5;
-                                        } else if ($_POST["shipping_option"] == "express") {
+                                            $_SESSION["DeliveryMode"] = "Normal";
+                                        } else if ($_POST["shipping_option"] == "Express") {
                                             $row["ShipCharge"] = 10;
+                                            $_SESSION["DeliveryMode"] = "Express";
                                         } else {
                                             $row["ShipCharge"] = 0; // Default if "Select Delivery Options" is selected
                                         }
@@ -241,11 +246,11 @@ function getTaxRate($conn, $currentDate)
                                 // Calculate tax
                                 $currentDate = date("Y-m-d");
                                 $taxRate = getTaxRate($conn, $currentDate);
-                                $taxAmount = ($subTotal * $taxRate) / 100;
+                                $taxAmount = number_format(($subTotal * $taxRate / 100), 2);
 
                                 echo "<div class='d-flex justify-content-between mb-4'>
                     <h5 class='text-uppercase'>Tax</h5>
-                    <h5>$" . number_format($taxAmount, 2) . "</h5>
+                    <h5>$" . $taxAmount . "</h5>
                 </div>";
 
                                 // Calculate total with shipping and tax

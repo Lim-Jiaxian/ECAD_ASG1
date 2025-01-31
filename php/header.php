@@ -19,8 +19,9 @@ $config = include(__DIR__ . "/../config.php");
     <link rel="stylesheet" href="../css/site.css">
 
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="<?= $config->SITE_ROOT ?>/css/bootstrap.css" />
+    <!-- No css/footer.css file -->
+    <!-- <link rel="stylesheet" type="text/css" href="<?= $config->SITE_ROOT ?>/css/footer.css" /> -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet" />
