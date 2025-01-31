@@ -9,6 +9,8 @@
 body {
 	font-family: var(--font-family);
 	color: #8d695b;
+	min-height: 100vh;
+	min-width: 100vw;
 }
 
 footer {
@@ -16,6 +18,8 @@ footer {
 	color: white;
 	padding: 20px 0;
 	text-align: center;
+	height: 300px;
+	width: 100%;
 }
 
 span {
@@ -330,8 +334,26 @@ a:focus {
 	font-size: 14px;
 }
 
+.error-statement {
+	width: 100%;
+	min-height: 10vh;
+	height: 40vh;
+	max-height: 500px;
+	justify-content: center;
+	text-align: center;
+	padding: 5rem;
+	margin: auto;
+}
 
-
+.retry-login {
+	border: none;
+	border-radius: 5px;
+	color: var(--secondary-colour);
+	font-size: 1.25rem;
+	background-color: var(--primary-colour);
+	padding: 0.25rem 0.75rem;
+	margin-top: 16px;
+}
 
 /*---- footer section style start ----*/
 .social-link-icon {

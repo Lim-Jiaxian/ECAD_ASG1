@@ -47,11 +47,23 @@ if ($result->num_rows > 0) {
 			header("Location: ../index.php");
 			exit;
 		} else {
-			echo  "<h3 style='color:red'>Invalid Login Credentials</h3>";
+			include("header.php");
+			echo "
+				<div class='error-statement'>
+					<h3 style='color:red'>Invalid Login Credentials</h3>
+					<a href='login.php'><button class='retry-login'>Retry</button></a>
+				</div>
+			";
 		}
 	}
 } else {
-	echo  "<h3 style='color:red'>Invalid User</h3>";
+	include("header.php");
+	echo "
+	<div class='error-statement'>
+		<h3 style='color:red'>Invalid User</h3>
+		<a href='login.php'><button class='retry-login'>Retry</button></a>
+	</div>
+	";
 }
 
 // Include the Page Layout footer
