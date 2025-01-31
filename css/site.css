@@ -2,13 +2,14 @@
 	--font-family: Poppins;
 	--primary-colour: #8d695b;
 	--secondary-colour: #ffffff;
+	--tertiary-colour: #514f4f;
 	--background-colour: #f9ece6;
 	--background-secondary-colour: #017CA7;
 }
 
 body {
 	font-family: var(--font-family);
-	color: #8d695b;
+	color: var(--primary-colour);
 	min-height: 100vh;
 	min-width: 100vw;
 }
@@ -29,6 +30,7 @@ span {
 .page-title {
 	font-size: 24px;
 	font-weight: bold;
+	color: var(--tertiary-colour);
 }
 
 .cart-header {
