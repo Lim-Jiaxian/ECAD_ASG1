@@ -119,7 +119,7 @@ include("header.php"); // Include the Page Layout header
             // Product Offer Price
             $offerPrice = $row["OfferedPrice"];
 
-            // Check for the product's quantity
+            // Check if the the product is currently on offer
             if($row["Offered"] == 1){
                 // Add to Cart Form
                 echo "    <form action='cartFunctions.php' method='post' class='mt-4'>";
@@ -135,6 +135,7 @@ include("header.php"); // Include the Page Layout header
                 echo "</div>"; // End of Row
 
             }else if ($row["Quantity"] < 1){
+                // Check for the product's quantity
                 // Add to Cart Form
                 echo "    <form action='cartFunctions.php' method='post' class='mt-4'>";
                 echo "        <input type='hidden' name='action' value='add' />";
