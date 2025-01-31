@@ -72,17 +72,17 @@ if (isset($_GET['searchFilter'])) {
             // Display results in table
             echo "<table class='table'>";
             // Move the search result header above the loop
-            echo "<tr><th>Showing list of products with " . htmlspecialchars($keyword) . " in the product name or description</th></tr>";
+            echo "<tr><th class='text-center'><b>Showing list of products with " . htmlspecialchars($keyword) . " in the product name or description</b></th></tr>";
             while ($row = $result->fetch_assoc()) {
                 $product = "productDetails.php?pid=" . $row['ProductID']; 
                 echo "<tr>";
                 // Display search result product titles
-                echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
+                echo "<td class='text-center'><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
                 echo "</tr>";
             }
             echo "</table>";
         } else {
-            echo "<p>No products found with '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
+            echo "<p class='text-center'><b>No products found with '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
         }
     } elseif ($selectedFilter == 'productOffer') {
         // Check if the product offer radiobutton is selected
@@ -103,17 +103,17 @@ if (isset($_GET['searchFilter'])) {
             // Display results in table
             echo "<table class='table'>";
             // Move the search result header above the loop
-            echo "<tr><th>Showing list of offered products with " . htmlspecialchars($keyword) . " in the product name or description</th></tr>";
+            echo "<tr><th class='text-center'><b>Showing list of offered products with " . htmlspecialchars($keyword) . " in the product name or description</b></th></tr>";
             while ($row = $result->fetch_assoc()) {
                 $product = "productDetails.php?pid=" . $row['ProductID']; 
                 echo "<tr>";
                 // Display search result product titles
-                echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
+                echo "<td class='text-center'><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
                 echo "</tr>";
             }
             echo "</table>";
         } else {
-            echo "<p>No offered products found with '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
+            echo "<p class='text-center'><b>No offered products found with '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
         }
     } elseif ($selectedFilter == 'productPrice') {
         // Check if the product price radiobutton is selected
@@ -133,17 +133,17 @@ if (isset($_GET['searchFilter'])) {
             // Display results in table
             echo "<table class='table'>";
             // Move the search result header above the loop
-            echo "<tr><th>Showing list of products less than or equal to price of S$ " . htmlspecialchars($keyword) . "</th></tr>";
+            echo "<tr><th class='text-center'><b>Showing list of products less than or equal to price of S$ " . htmlspecialchars($keyword) . "</b></th></tr>";
             while ($row = $result->fetch_assoc()) {
                 $product = "productDetails.php?pid=" . $row['ProductID']; 
                 echo "<tr>";
                 // Display search result product titles
-                echo "<td><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
+                echo "<td class='text-center'><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
                 echo "</tr>";
             }
             echo "</table>";
         } else {
-            echo "<p>No products found with less than or equal to price of S$ '" . htmlspecialchars($keyword) . "' in the product name or description</p>";
+            echo "<p class='text-center'><b>No products found with less than or equal to price of S$ '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
         }
     }
 }
