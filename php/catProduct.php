@@ -5,11 +5,12 @@ include("header.php"); // Include the Page Layout header
 <!-- Create a container, 80% width of viewport -->
 <div class="container-fluid d-flex flex-column" style="min-height: 100vh;">
 	<!-- Centered Content with Enhanced Spacing -->
-	<div class="content-area flex-grow-1" style="width:80%; margin:auto; margin-top:80px; margin-bottom:80px;">
+	<div class="content-area flex-grow-1" style="width:80%; margin:auto; margin-top:80px; margin-bottom:80px; background-color:#f9ece6; padding:30px; border-radius:10px;">
 		<!-- Display Page Header - Category's name -->
 		<div class="row text-center mb-5">
 			<div class="col-12">
-				<h2 class="page-title" style="font-size: 36px; font-weight: bold;"><?php echo "$_GET[catName]"; ?></h2>
+				<h2 class="page-title" style="font-size: 24px; font-weight: bold;"><?php echo "$_GET[catName]"; ?></h2>
+				<p class="text-muted">Select an item listed below to view more</p>
 			</div>
 		</div>
 
