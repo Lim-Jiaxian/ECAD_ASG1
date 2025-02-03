@@ -18,7 +18,7 @@ include("header.php"); // Include the Page Layout header
     // Include the PHP file that establishes database connection handle: $conn
     include_once("mysql_conn.php");
 
-    $qry = "SELECT * FROM Category"; // Form SQL to select all categories 
+    $qry = "SELECT * FROM Category ORDER BY catName ASC"; // SQL to select all categories sorted by category name
     $result = $conn->query($qry); // Execute the SQL and get the result
     
     // Display each category in a row

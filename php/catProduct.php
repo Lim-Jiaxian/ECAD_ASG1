@@ -19,11 +19,11 @@ include("header.php"); // Include the Page Layout header
 		include_once("mysql_conn.php");
 
 		$cid = $_GET["cid"]; // Read Category ID from query string
-		// Form SQL to retrieve list of products associated with the Category ID 
+		// SQL to retrieve list of products associated with the Category ID sorted by ProductTitle
 		$qry = "SELECT p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity 
                 FROM CatProduct cp 
                 INNER JOIN product p ON cp.ProductID = p.ProductID 
-                WHERE cp.CategoryID = ?";
+                WHERE cp.CategoryID = ? ORDER BY p.ProductTitle ASC";
 		$stmt = $conn->prepare($qry);
 		$stmt->bind_param("i", $cid); // "i" - integer
 		$stmt->execute();
