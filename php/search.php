@@ -15,7 +15,7 @@ include("header.php"); // Include the Page Layout header
     <div class="mb-3 row"> <!-- 2nd row -->
         <label for="keywords" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-6">
-            <input class="form-control" name="keywords" id="keywords" type="search" placeholder="Enter product title or description" />
+            <input class="form-control" name="keywords" id="keywords" type="search" placeholder="Enter details to search for a product" />
             <input type="radio" id="productTitleDesc" name="searchFilter" value="productTitleDesc" checked="checked" style="accent-color: #8d695b;">
             <label for="productTitleDesc">Product name or description</label><br>
             <input type="radio" id="productOffer" name="searchFilter" value="productOffer" style="accent-color: #8d695b;">
@@ -58,7 +58,7 @@ if (isset($_GET['searchFilter'])) {
         // Contains the keyword entered by shopper, and display them in a table
         $keyword = $_GET['keywords'];
         // SQL statement with a LIKE query to find user input search
-        $qry = "SELECT ProductID, ProductTitle FROM product WHERE ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle";
+        $qry = "SELECT ProductID, ProductTitle FROM product WHERE ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle ASC";
         $stmt = $conn->prepare($qry);
         $likeKeyword = '%'.$keyword.'%';
         $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
