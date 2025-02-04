@@ -4,13 +4,25 @@ $config = include(__DIR__ . "/../config.php");
 
 // Display guest welcome message, Login and Registration links when the shopper has yet to login
 $content1 = "<span style='color:#8d695b; padding-right: 20px;'>Welcome Guest</span><br />";
-$content2 = "
-             <a class='nav-link' href='" . $config->SITE_ROOT . "/php/register.php'>Sign Up</a>
-    
-             <a class='nav-link' href='" . $config->SITE_ROOT . "/php/login.php'>Login</a>";
+// $content2 = "
+//              <a class='nav-link' href='" . $config->SITE_ROOT . "/php/register.php'>Sign Up</a>
+//              <a class='nav-link' href='" . $config->SITE_ROOT . "/php/login.php'>Login</a>";
+
+$content2 = '
+    <ul class="navbar-nav me-auto">
+        <li class="nav-item ' . ((basename($_SERVER['PHP_SELF']) == 'register.php') ? 'active' : '') . '">
+            <a class="nav-link" href="' . $config->SITE_ROOT . '/php/register.php">Sign Up</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav me-auto">
+        <li class="nav-item ' . ((basename($_SERVER['PHP_SELF']) == 'login.php') ? 'active' : '') . '">
+            <a class="nav-link" href="' . $config->SITE_ROOT . '/php/login.php">Login</a>
+        </li>
+    </ul>';
 $profile = "";
 $cart = "";
 $search = "";
+$contactus = "";
 
 
 if (isset($_SESSION["ShopperName"])) {
@@ -31,13 +43,15 @@ if (isset($_SESSION["ShopperName"])) {
                   </a>";
     }
 
-    $search = "<a href='" . $config->SITE_ROOT . "/php/search.php' style='margin: 0 10px;'>
-                <i class='fa fa-search' aria-hidden='true'></i>
-           </a>";
+    // $search = "<a href='" . $config->SITE_ROOT . "/php/search.php' style='margin: 0 10px;'>
+    //             <i class='fa fa-search' aria-hidden='true'></i>
+    //        </a>";
 
     $profile .= "<a href='" . $config->SITE_ROOT . "/php/profile.php' style='margin: 0 20px;'>
                     <i class='fa fa-user' aria-hidden='true'></i>
                  </a>";
+
+    $contactus = "<a class='nav-link' href='" . $config->SITE_ROOT . "/php/contact.php'>Contact us</a>";
 
 }
 ?>
@@ -58,12 +72,15 @@ if (isset($_SESSION["ShopperName"])) {
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/index.php">Home</a>
                     </li>
+                    <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'about.php') ? 'active' : ''; ?>">
+                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/about.php">About us</a>
+                    </li>
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'category.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/category.php">Product Categories</a>
-                    </li>
+                    </li>   
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'search.php') ? 'active' : ''; ?>">
-                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/search.php">Search Product</a>
-                    </li>
+                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/search.php"><i class='fa fa-search' aria-hidden='true'></i></a>
+                    </li>        
                 </ul>
 
                 <a class="navbar-brand mx-auto" href="<?= $config->SITE_ROOT ?>/index.php">
@@ -73,7 +90,11 @@ if (isset($_SESSION["ShopperName"])) {
 
                 <div class="user_option ms-auto d-flex justify-content-center align-items-center">
                     <span class="mr-4 text-center" style="color: #514f4f;"><?= $content1; ?></span>
-                    <?= $search ?>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'contact.php') ? 'active' : ''; ?>">
+                            <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/contact.php">Contact Us</a>
+                        </li>
+                    </ul>
                     <?= $cart ?>
                     <?= $profile ?>
                     <?= $content2; ?>
