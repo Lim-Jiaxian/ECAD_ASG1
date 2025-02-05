@@ -5,7 +5,7 @@ include("header.php"); // Include the Page Layout header
 <!-- Create a container, 80% width of viewport -->
 <div class="container-fluid d-flex flex-column" style="min-height: 100vh;">
 	<!-- Centered Content with Enhanced Spacing -->
-	<div class="content-area flex-grow-1" style="width:80%; margin:auto; margin-top:80px; margin-bottom:80px; background-color:#f9ece6; padding:30px; border-radius:10px;">
+	<div class="content-area flex-grow-1" style="width:80%; font-family: Poppins; margin:auto; margin-top:80px; margin-bottom:80px; background-color:#f9ece6; padding:30px; border-radius:10px;">
 		<!-- Display Page Header - Category's name -->
 		<div class="row text-center mb-5">
 			<div class="col-12">
@@ -45,7 +45,7 @@ include("header.php"); // Include the Page Layout header
 			echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
 			echo "          <div class='card-body text-center'>";
 			echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
-			echo "              <p class='card-text' style='font-weight:bold; color:black;'>S$ $formattedPrice</p>";
+			echo "              <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black;'>S$ $formattedPrice</p>";
 			echo "          </div>";
 			echo "      </div>"; // End of card
 			echo "  </a>";

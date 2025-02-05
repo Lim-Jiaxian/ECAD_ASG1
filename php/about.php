@@ -11,7 +11,7 @@ include("header.php"); // Include the Page Layout header
     <div class="row mb-4 text-center"> <!-- Centered header row -->
         <div class="col-12">
             <h2 class="page-title">About Little Wonders</h2>
-            <p class="text-muted">Little Wonders was founded by three individuals who wanted to create an E-commerce Online shop that offers a wide range of baby products designed to meet the needs of both parents and their little ones. From soft, comfortable baby clothing to essential bathing and grooming items, the store ensures that every product is gentle on your baby's skin and practical for daily use. In addition, a variety of strollers are available, offering comfort, safety, and convenience for parents.</p>
+            <p class="text-muted">Little Wonders was founded by three individuals who wanted to create an E-commerce Online shop offering a wide range of baby products designed to meet the needs of both parents and their little ones. From soft, comfortable baby clothing to essential bathing and grooming items, the store ensures that every product is gentle on your baby's skin and practical for daily use. In addition, a variety of strollers are available, offering comfort, safety, and convenience for parents.</p>
         </div>
         <div class="lottie-container">
             <dotlottie-player src="https://lottie.host/11823867-3aa3-4372-a97b-f94189cf04c8/BwiIw7iZVs.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
