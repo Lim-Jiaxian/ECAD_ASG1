@@ -7,6 +7,7 @@ $config = include("config.php");
 include("php/header.php");
 ?>
 
+<!-- Homepage done by Charmaine Cheng -->
 <div class="container-fluid d-flex flex-column" style="min-height: 100vh; padding: 0;">
     <!-- Main Content Area -->
     <div class="main-content flex-grow-1" style="padding: 20px;">

@@ -1,4 +1,5 @@
 <?php
+// Shopping cart page done by Charmaine Cheng
 // Include the code that contains shopping cart's functions.
 // Current session is detected in "cartFunctions.php, hence need not start session here.
 include_once("cartFunctions.php");
@@ -57,7 +58,7 @@ function getTaxRate($conn, $currentDate)
 
 ?>
 
-<div class='container py-5'>
+<div class='container py-5' style="font-family: 'Poppins', sans-serif !important;">
     <div class='row d-flex flex-wrap justify-content-between align-items-start'>
         <div class='col-lg-8'>
             <div class='card card-registration card-registration-2'>
@@ -95,7 +96,7 @@ function getTaxRate($conn, $currentDate)
                                         $row["ShipCharge"] = 0;
                                         $subTotal = 0;
                                         $_SESSION["Items"] = array(); // Array to store shopping cart items
-
+                                
                                         while ($row = $result->fetch_array()) {
                                             $productImage = getProductImage($conn, $row["ProductID"]);
                                             $img = "../Images/Products/$productImage";
@@ -130,7 +131,7 @@ function getTaxRate($conn, $currentDate)
 
                                                 echo "<div class='col-md-3 col-lg-2 col-xl-2 offset-lg-1'>";
                                                 echo "<h6 class='text-black mb-0'><del>$ " . number_format($row["Price"] * $row["Quantity"], 2) . "</del></h6>";
-                                                echo "<h6 class='text-success mb-0'>$ " . number_format($row["Total"], 2) . "</h6>";
+                                                echo "<h6 class='text-danger mb-0'>$ " . number_format($row["Total"], 2) . "</h6>";
                                                 echo "</div>";
                                             } else {
                                                 $row["Total"] = $row["Price"] * $row["Quantity"];
@@ -194,7 +195,7 @@ function getTaxRate($conn, $currentDate)
                             <h3 class='fw-bold mb-3 mt-2 pt-1' style="color: #8d695b;">Summary</h3>
                             <?php
                             // Ensure $totalQuantity is defined
-
+                            
                             echo "<p style='display: flex; flex-direction: row-reverse;'> Total Items: $totalQuantity</p>";
                             ?>
 
