@@ -5,7 +5,7 @@ include("header.php"); // Include the Page Layout header
 
 <!-- Create a container for the centered layout -->
 <div
-    style="width:60%; margin:auto; margin-top:50px; margin-bottom:50px; padding:30px; background-color:#f9ece6; border-radius:10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    style="width:60%; font-family: Poppins; margin:auto; margin-top:50px; margin-bottom:50px; padding:30px; background-color:#f9ece6; border-radius:10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
     <!-- Display Page Header -->
     <div class="row mb-4 text-center"> <!-- Centered header row -->
         <div class="col-12">
