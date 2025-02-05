@@ -361,6 +361,11 @@ a:focus {
 
 /*---- promotional products section style start ----*/
 /* Promotional Section Styling */
+.promotional_section {
+	margin-top:50px;
+}
+
+
 .promo-card {
     background-color: #ffffff;
     border-radius: 15px;
@@ -445,7 +450,6 @@ a:focus {
 
 .btn-box {
     text-align: center;
-    margin-top: 30px;
 }
 
 .btn-box a {

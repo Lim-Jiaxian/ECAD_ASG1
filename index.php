@@ -97,8 +97,9 @@ include("php/header.php");
         <!-- start of promotional products -->
         <section class="promotional_section layout_padding">
             <div class="container">
-                <div class="heading_container heading_center">
-                    <h2>Promotional Products</h2>
+                <div class="heading_container heading_center"
+                    style="font-family: 'poppins', sans-serif; color: #8d695b;">
+                    <h2 style="font-weight:bold;">Promotional Products</h2>
                 </div>
                 <div class="row">
                     <?php
