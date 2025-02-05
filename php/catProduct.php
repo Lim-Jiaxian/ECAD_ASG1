@@ -41,9 +41,20 @@ include("header.php"); // Include the Page Layout header
 				$offerPrice = number_format($row["OfferedPrice"], 2);
 				$img = "../Images/Products/$row[ProductImage]";
 
+				echo "
+					<style>
+						.card-hover {
+							transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+						}
+						.card-hover:hover {
+							transform: scale(1.05); /* Slightly expands the card */
+							box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
+						}
+					</style>";
+
 				echo "<div class='col'>"; // Start of card column
 				echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-				echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+				echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
 				echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
 				echo "          <div class='card-body text-center'>";
 				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
@@ -60,9 +71,20 @@ include("header.php"); // Include the Page Layout header
 				$formattedPrice = number_format($row["Price"], 2);
 				$img = "../Images/Products/$row[ProductImage]";
 
+				echo "
+					<style>
+						.card-hover {
+							transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+						}
+						.card-hover:hover {
+							transform: scale(1.05); /* Slightly expands the card */
+							box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
+						}
+					</style>";
+
 				echo "<div class='col'>"; // Start of card column
 				echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-				echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+				echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
 				echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
 				echo "          <div class='card-body text-center'>";
 				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
@@ -74,9 +96,7 @@ include("header.php"); // Include the Page Layout header
 				echo "  </a>";
 				echo "</div>"; // End of card column
 			}
-			
 		}
-
 		echo "</div>"; // End of product grid
 		
 		// Closing database connection will be in footer.php

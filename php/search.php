@@ -58,7 +58,8 @@ if (isset($_GET['searchFilter'])) {
         // Contains the keyword entered by shopper, and display them in a table
         $keyword = $_GET['keywords'];
         // SQL statement with a LIKE query to find user input search
-        $qry = "SELECT ProductID, ProductTitle FROM product WHERE ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle ASC";
+        $qry = "SELECT ProductID, ProductTitle, ProductImage, Price, Offered, OfferedPrice FROM product WHERE ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle ASC";
+        //p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity, p.Offered, p.OfferedPrice 
         $stmt = $conn->prepare($qry);
         $likeKeyword = '%'.$keyword.'%';
         $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
@@ -66,30 +67,95 @@ if (isset($_GET['searchFilter'])) {
         $result = $stmt->get_result(); 
         // Close statement and connection
         $stmt->close();
-        $conn->close();
+        // Closing database connection will be in footer.php
 
-        if ($result->num_rows > 0) {
-            // Display results in table
-            echo "<table class='table'>";
+        // Check if there are any results from query
+        $checker = $result->fetch_array();
+        if ($result->num_rows > 0){
             // Move the search result header above the loop
-            echo "<tr><th class='text-center'><b>Showing list of products with " . htmlspecialchars($keyword) . " in the product name or description</b></th></tr>";
-            while ($row = $result->fetch_assoc()) {
-                $product = "productDetails.php?pid=" . $row['ProductID']; 
-                echo "<tr>";
-                // Display search result product titles
-                echo "<td class='text-center'><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
+            echo "<p class='text-center'><b>Showing list of products with " . htmlspecialchars($keyword) . " in the product name or description</b></p>";
+            echo "<br>";
+        }else{
             echo "<p class='text-center'><b>No products found with '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
         }
+        
+        // Start product grid
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+        // Display results
+        while ($row = $result->fetch_array()) {
+            if ($result->num_rows > 0) {
+                // Check if the product has offer
+                if($row["Offered"] == 1){
+                    $product = "productDetails.php?pid=$row[ProductID]";
+                    $formattedPrice = number_format($row["Price"], 2);
+                    $offerPrice = number_format($row["OfferedPrice"], 2);
+                    $img = "../Images/Products/$row[ProductImage]";
+    
+                    echo "
+                        <style>
+                            .card-hover-effect {
+                                transition: all 0.3s ease-in-out; /* Smooth transition */
+                            }
+                            .card-hover-effect:hover {
+                                transform: scale(1.05); /* Expands the card */
+                                box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
+                            }
+                        </style>";
+
+                    echo "<div class='col'>"; // Start of card column
+                    echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                    echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                    echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                    echo "          <div class='card-body text-center'>";
+                    echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                    echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
+                    echo "              </div>";
+                    echo "          </div>";
+                    echo "      </div>"; // End of card
+                    echo "  </a>";
+                    echo "</div>"; // End of card column
+                }else{
+                    // Products with no offer
+                    $product = "productDetails.php?pid=$row[ProductID]";
+                    $formattedPrice = number_format($row["Price"], 2);
+                    $img = "../Images/Products/$row[ProductImage]";
+    
+                    echo "
+                        <style>
+                            .card-hover {
+                                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+                            }
+                            .card-hover:hover {
+                                transform: scale(1.05); /* Slightly expands the card */
+                                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
+                            }
+                        </style>";
+
+                    echo "<div class='col'>"; // Start of card column
+                    echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                    echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                    echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                    echo "          <div class='card-body text-center'>";
+                    echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                    echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
+                    echo "              </div>";
+                    echo "          </div>";
+                    echo "      </div>"; // End of card
+                    echo "  </a>";
+                    echo "</div>"; // End of card column
+                }
+            }
+        }
+        
     } elseif ($selectedFilter == 'productOffer') {
         // Check if the product offer radiobutton is selected
         // Contains the keyword entered by shopper, and display them in a table
         $keyword = $_GET['keywords'];
         // SQL statement with a LIKE query to find user input search
-        $qry = "SELECT ProductID, ProductTitle FROM product WHERE Offered = 1 AND ProductTitle LIKE ? OR ProductDesc LIKE ? ORDER BY ProductTitle";
+        $qry = "SELECT ProductID, ProductTitle, ProductImage, Price, Offered, OfferedPrice FROM product WHERE Offered = 1 AND (ProductTitle LIKE ? OR ProductDesc LIKE ?) ORDER BY ProductTitle";
         $stmt = $conn->prepare($qry);
         $likeKeyword = '%'.$keyword.'%';
         $stmt->bind_param("ss", $likeKeyword, $likeKeyword);
@@ -97,57 +163,154 @@ if (isset($_GET['searchFilter'])) {
         $result = $stmt->get_result(); 
         // Close statement and connection
         $stmt->close();
-        $conn->close();
+        // Closing database connection will be in footer.php
 
-        if ($result->num_rows > 0) {
-            // Display results in table
-            echo "<table class='table'>";
+        // Check if there are any results from query
+        $checker = $result->fetch_array();
+        if ($result->num_rows > 0){
             // Move the search result header above the loop
-            echo "<tr><th class='text-center'><b>Showing list of offered products with " . htmlspecialchars($keyword) . " in the product name or description</b></th></tr>";
-            while ($row = $result->fetch_assoc()) {
-                $product = "productDetails.php?pid=" . $row['ProductID']; 
-                echo "<tr>";
-                // Display search result product titles
-                echo "<td class='text-center'><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
+            echo "<p class='text-center'><b>Showing list of offered products with " . htmlspecialchars($keyword) . " in the product name or description</b></p>";
+            echo "<br>";
+        }else{
             echo "<p class='text-center'><b>No offered products found with '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
+        }
+        
+        // Start product grid
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+        // Display results
+        while ($row = $result->fetch_array()) {
+            if ($result->num_rows > 0) {
+                $product = "productDetails.php?pid=$row[ProductID]";
+                $formattedPrice = number_format($row["Price"], 2);
+                $offerPrice = number_format($row["OfferedPrice"], 2);
+                $img = "../Images/Products/$row[ProductImage]";
+
+                echo "
+                    <style>
+                        .card-hover-effect {
+                            transition: all 0.3s ease-in-out; /* Smooth transition */
+                        }
+                        .card-hover-effect:hover {
+                            transform: scale(1.05); /* Expands the card */
+                            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
+                        }
+                    </style>";
+
+                echo "<div class='col'>"; // Start of card column
+                echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                echo "          <div class='card-body text-center'>";
+                echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
+                echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
+                echo "              </div>";
+                echo "          </div>";
+                echo "      </div>"; // End of card
+                echo "  </a>";
+                echo "</div>"; // End of card column
+            }
         }
     } elseif ($selectedFilter == 'productPrice') {
         // Check if the product price radiobutton is selected
         // Contains the keyword entered by shopper
         $keyword = $_GET['keywords'];
         // SQL statement to pricees lower or equals to user input search
-        $qry = "SELECT ProductID, ProductTitle, Price FROM product WHERE Price <= ? ORDER BY ProductTitle";
+        $qry = "SELECT ProductID, ProductTitle, ProductImage, Price, Offered, OfferedPrice FROM product WHERE Price <= ? ORDER BY ProductTitle";
         $stmt = $conn->prepare($qry);
         $stmt->bind_param("i", $keyword);
         $stmt->execute();
         $result = $stmt->get_result(); 
         // Close statement and connection
         $stmt->close();
-        $conn->close();
+        // Closing database connection will be in footer.php
 
-        if ($result->num_rows > 0) {
-            // Display results in table
-            echo "<table class='table'>";
+        $checker = $result->fetch_array();
+        if ($result->num_rows > 0){
             // Move the search result header above the loop
-            echo "<tr><th class='text-center'><b>Showing list of products less than or equal to price of S$ " . htmlspecialchars($keyword) . "</b></th></tr>";
-            while ($row = $result->fetch_assoc()) {
-                $product = "productDetails.php?pid=" . $row['ProductID']; 
-                echo "<tr>";
-                // Display search result product titles
-                echo "<td class='text-center'><a href='$product'>" . htmlspecialchars($row['ProductTitle']) . "</a></td>"; 
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
+            echo "<p class='text-center'><b>Showing list of products less than or equal to price of S$ " . htmlspecialchars($keyword) . "</b></p>";
+            echo "<br>";
+        }else{
             echo "<p class='text-center'><b>No products found with less than or equal to price of S$ '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
+        }
+
+        // Start product grid
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+        // Display results
+        while ($row = $result->fetch_array()) {
+            if ($result->num_rows > 0) {
+                // Check if the product has offer
+                if($row["Offered"] == 1){
+                    $product = "productDetails.php?pid=$row[ProductID]";
+                    $formattedPrice = number_format($row["Price"], 2);
+                    $offerPrice = number_format($row["OfferedPrice"], 2);
+                    $img = "../Images/Products/$row[ProductImage]";
+    
+                    echo "
+                        <style>
+                            .card-hover-effect {
+                                transition: all 0.3s ease-in-out; /* Smooth transition */
+                            }
+                            .card-hover-effect:hover {
+                                transform: scale(1.05); /* Expands the card */
+                                box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
+                            }
+                        </style>";
+
+                    echo "<div class='col'>"; // Start of card column
+                    echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                    echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                    echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                    echo "          <div class='card-body text-center'>";
+                    echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                    echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
+                    echo "              </div>";
+                    echo "          </div>";
+                    echo "      </div>"; // End of card
+                    echo "  </a>";
+                    echo "</div>"; // End of card column
+                }else{
+                    // Products with no offer
+                    $product = "productDetails.php?pid=$row[ProductID]";
+                    $formattedPrice = number_format($row["Price"], 2);
+                    $img = "../Images/Products/$row[ProductImage]";
+    
+                    echo "
+                        <style>
+                            .card-hover {
+                                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+                            }
+                            .card-hover:hover {
+                                transform: scale(1.05); /* Slightly expands the card */
+                                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
+                            }
+                        </style>";
+
+                    echo "<div class='col'>"; // Start of card column
+                    echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                    echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                    echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                    echo "          <div class='card-body text-center'>";
+                    echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                    echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
+                    echo "              </div>";
+                    echo "          </div>";
+                    echo "      </div>"; // End of card
+                    echo "  </a>";
+                    echo "</div>"; // End of card column
+                }
+            }
         }
     }
 }
 
+
+
 echo "</div>"; // End of container
+echo "<br><br><br>";
 include("footer.php"); // Include the Page Layout footer
 ?>
