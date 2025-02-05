@@ -131,7 +131,7 @@ include("php/header.php");
                     ?>
                 </div>
                 <div class="btn-box">
-                    <a href="category.php">View All Products</a>
+                    <a href="./php/category.php">View All Products</a>
                 </div>
             </div>
         </section>

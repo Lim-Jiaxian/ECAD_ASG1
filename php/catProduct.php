@@ -20,7 +20,7 @@ include("header.php"); // Include the Page Layout header
 
 		$cid = $_GET["cid"]; // Read Category ID from query string
 		// SQL to retrieve list of products associated with the Category ID sorted by ProductTitle
-		$qry = "SELECT p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity 
+		$qry = "SELECT p.ProductID, p.ProductTitle, p.ProductImage, p.Price, p.Quantity, p.Offered, p.OfferedPrice 
                 FROM CatProduct cp 
                 INNER JOIN product p ON cp.ProductID = p.ProductID 
                 WHERE cp.CategoryID = ? ORDER BY p.ProductTitle ASC";
@@ -35,21 +35,44 @@ include("header.php"); // Include the Page Layout header
 
 		// Display each product as a card
 		while ($row = $result->fetch_array()) {
-			$product = "productDetails.php?pid=$row[ProductID]";
-			$formattedPrice = number_format($row["Price"], 2);
-			$img = "../Images/Products/$row[ProductImage]";
+			if($row["Offered"] == 1){
+				$product = "productDetails.php?pid=$row[ProductID]";
+				$formattedPrice = number_format($row["Price"], 2);
+				$offerPrice = number_format($row["OfferedPrice"], 2);
+				$img = "../Images/Products/$row[ProductImage]";
 
-			echo "<div class='col'>"; // Start of card column
-			echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-			echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-			echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-			echo "          <div class='card-body text-center'>";
-			echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
-			echo "              <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black;'>S$ $formattedPrice</p>";
-			echo "          </div>";
-			echo "      </div>"; // End of card
-			echo "  </a>";
-			echo "</div>"; // End of card column
+				echo "<div class='col'>"; // Start of card column
+				echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+				echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+				echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+				echo "          <div class='card-body text-center'>";
+				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
+				echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center;'>";
+				echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
+				echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
+				echo "              </div>";
+				echo "          </div>";
+				echo "      </div>"; // End of card
+				echo "  </a>";
+				echo "</div>"; // End of card column
+			}else{
+				$product = "productDetails.php?pid=$row[ProductID]";
+				$formattedPrice = number_format($row["Price"], 2);
+				$img = "../Images/Products/$row[ProductImage]";
+
+				echo "<div class='col'>"; // Start of card column
+				echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+				echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+				echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+				echo "          <div class='card-body text-center'>";
+				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
+				echo "              <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black;'>S$ $formattedPrice</p>";
+				echo "          </div>";
+				echo "      </div>"; // End of card
+				echo "  </a>";
+				echo "</div>"; // End of card column
+			}
+			
 		}
 
 		echo "</div>"; // End of product grid
