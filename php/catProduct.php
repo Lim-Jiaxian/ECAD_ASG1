@@ -46,8 +46,8 @@ include("header.php"); // Include the Page Layout header
 				echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
 				echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
 				echo "          <div class='card-body text-center'>";
-				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
-				echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center;'>";
+				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+				echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
 				echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
 				echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
 				echo "              </div>";
@@ -65,8 +65,10 @@ include("header.php"); // Include the Page Layout header
 				echo "      <div class='card h-100' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
 				echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
 				echo "          <div class='card-body text-center'>";
-				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b;'>$row[ProductTitle]</h5>";
-				echo "              <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black;'>S$ $formattedPrice</p>";
+				echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+				echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+				echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
+				echo "              </div>";
 				echo "          </div>";
 				echo "      </div>"; // End of card
 				echo "  </a>";
