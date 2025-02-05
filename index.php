@@ -95,6 +95,44 @@ include("php/header.php");
 
 
         <!-- start of promotional products -->
+        <section class="promotional_section layout_padding">
+            <div class="container">
+                <div class="heading_container heading_center">
+                    <h2>Promotional Products</h2>
+                </div>
+                <div class="row">
+                    <?php
+                    include_once("php/mysql_conn.php");
+                    $qry = "SELECT * FROM Product WHERE Offered = 1";
+                    $result = $conn->query($qry);
+
+                    while ($row = $result->fetch_array()) {
+                        echo '
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="promo-card">
+                        <a href="productDetails.php?pid=' . $row["ProductID"] . '">
+                            <div class="promo-image">
+                                <img src="images/Products/' . $row["ProductImage"] . '" alt="' . htmlspecialchars($row["ProductTitle"]) . '">
+                                <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>
+                            </div>
+                            <div class="promo-content">
+                                <h6>' . htmlspecialchars($row["ProductTitle"]) . '</h6>
+                                <div class="promo-price">
+                                    <span class="new-price">$' . number_format($row["OfferedPrice"], 2) . '</span>
+                                    <span class="old-price">$' . number_format($row["Price"], 2) . '</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>';
+                    }
+                    ?>
+                </div>
+                <div class="btn-box">
+                    <a href="category.php">View All Products</a>
+                </div>
+            </div>
+        </section>
 
         <!-- end of promotional products -->
 

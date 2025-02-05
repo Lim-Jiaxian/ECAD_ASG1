@@ -359,6 +359,124 @@ a:focus {
 	margin-top: 16px;
 }
 
+/*---- promotional products section style start ----*/
+/* Promotional Section Styling */
+.promo-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.promo-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.promo-card a {
+    text-decoration: none !important;
+    color: inherit;
+    display: block;
+}
+
+.promo-image {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+.promo-image img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.promo-image .promo-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4c60;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50px;
+}
+
+.promo-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.promo-content h6 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.promo-price {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.promo-price .new-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #db4f66;
+}
+
+.promo-price .old-price {
+    font-size: 14px;
+    font-weight: normal;
+    color: #888888;
+    text-decoration: line-through;
+}
+
+.btn-box {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-box a {
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: #db4f66;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.btn-box a:hover {
+    background-color: #ffffff;
+    color: #db4f66;
+    border: 1px solid #db4f66;
+}
+
+@media (min-width: 576px) {
+    .col-sm-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-bottom: 20px !important;
+		text-decoration: none !important;
+    }
+}
+
+
 /*---- product category section style start ----*/
 
 /* Section title styling */
