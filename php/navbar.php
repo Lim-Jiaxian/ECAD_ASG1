@@ -25,6 +25,8 @@ $search = "";
 $contactus = "";
 
 
+
+
 if (isset($_SESSION["ShopperName"])) {
     // Display a greeting message and logout link after the shopper logs in
     $content1 = "Welcome back, <b>{$_SESSION['ShopperName']}</b>";
@@ -37,13 +39,14 @@ if (isset($_SESSION["ShopperName"])) {
 
     // Display the number of items in the cart
     if (isset($_SESSION["NumCartItem"])) {
-        $cart .= "<a href='" . $config->SITE_ROOT . "/php/shoppingCart.php' style='margin: 0 20px;'>
-                    <i class='fa fa-shopping-bag position-relative' aria-hidden='true'>
-                        <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>
-                            {$_SESSION['NumCartItem']}
-                        </span>
-                    </i>
-                  </a>";
+        $cart = "
+        <ul class='navbar-nav me-auto'>
+            <li class='nav-item " . ((basename($_SERVER['PHP_SELF']) == 'login.php') ? 'active' : '') . "'>
+                <a class='nav-link' href='" . $config->SITE_ROOT . "/php/shoppingCart.php' style='margin: 0 20px;'>
+                    <i class='fa fa-shopping-bag position-relative' aria-hidden='true'><span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>{$_SESSION['NumCartItem']}</span></i>
+                </a>
+            </li>
+        </ul>";
     }
 
     // $search = "<a href='" . $config->SITE_ROOT . "/php/search.php' style='margin: 0 10px;'>
