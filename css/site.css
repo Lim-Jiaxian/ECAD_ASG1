@@ -471,3 +471,11 @@ a:focus {
 	background-color: #f9ece6;
     color: #8d695b;
 }
+
+/* Lottie container to hold two animations */
+.lottie-container {
+	display: flex;
+	justify-content: center;  
+	gap: 20px; 
+	flex-wrap: wrap;  
+}

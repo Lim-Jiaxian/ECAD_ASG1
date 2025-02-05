@@ -82,7 +82,7 @@ if (isset($_SESSION["ShopperName"])) {
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/index.php">Home</a>
                     </li>
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'about.php') ? 'active' : ''; ?>">
-                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/about.php">About us</a>
+                        <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/about.php">About Us</a>
                     </li>
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'category.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/category.php">Product Categories</a>
