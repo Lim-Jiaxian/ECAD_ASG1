@@ -43,7 +43,7 @@ include("header.php"); // Include the Page Layout header
         echo "</div>";
     }
 
-    $conn->close(); // Close database connection
+    // Closing database connection will be in footer.php
     ?>
 </div>
 
