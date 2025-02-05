@@ -93,12 +93,130 @@ include("php/header.php");
 
         <!-- end slider section -->
 
+
         <!-- start of promotional products -->
 
         <!-- end of promotional products -->
 
 
+        <!-- start of product category section -->
+        <section class="categories_section" style="margin: 40px 0;"> <!-- Added margin for spacing -->
+            <div class="container">
+                <div class="heading_container">
+                    <h2 class="section-title"> <!-- Added class for font consistency -->
+                        Our Categories
+                    </h2>
+                </div>
+                <div class="row text-center categories">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="category-card"
+                            style="background-image: url('https://www.bambini.nz/user/files/babyGrowncutiesforBlogpost.jpg?t=2310121855');">
+                            <a href="php/catProduct.php?cid=1&catName=Baby+Clothing">
+                                <div class="category-content">
+                                    <h6>Baby Clothing</h6>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="category-card"
+                            style="background-image: url('https://imgix.theurbanlist.com/content/article/Best-Prams-And-Strollers-Australia_1.jpg?auto=format,compress&w=520&h=390&fit=crop');">
+                            <a href="php/catProduct.php?cid=2&catName=Baby+Gear">
+                                <div class="category-content">
+                                    <h6>Baby Gear</h6>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="category-card"
+                            style="background-image: url('https://billieandbyron.com/cdn/shop/files/baby-gifts-brush-comb-set-wooden-unisex-nursery-decor-billie-byron-1.jpg?v=1724289840');">
+                            <a href="php/catProduct.php?cid=3&catName=Bathing+and+Grooming">
+                                <div class="category-content">
+                                    <h6>Bathing and Grooming</h6>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- end of product category section -->
+
+        <!-- start of reviews/feedback -->
+        <section class="client_section layout_padding">
+            <div class="container">
+                <div class="heading_container heading_left">
+                    <h2 style="font-weight: bold;">Customer Reviews</h2>
+                </div>
+            </div>
+            <div class="container px-0">
+                <div id="customCarousel2" class="carousel carousel-fade" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+                        // Include the database connection
+                        include_once("php/mysql_conn.php");
+
+                        // Check if connection exists
+                        if (!isset($conn)) {
+                            die("Database connection not established.");
+                        }
+
+                        // Fetch reviews from the database
+                        $qry = "SELECT f.*, s.Name FROM Feedback f INNER JOIN Shopper s ON f.ShopperID = s.ShopperID";
+                        $result = $conn->query($qry);
+
+                        if ($result->num_rows > 0) {
+                            $i = 0;
+                            while ($row = $result->fetch_assoc()) {
+                                $rank = $row["Rank"];
+                                $date = $row["DateTimeCreated"];
+                                $dateTime = new DateTime($date);
+                                $formattedDate = $dateTime->format("M Y");
+
+                                // Generate stars for the rating
+                                $review = str_repeat('<i class="fas fa-star" style="color: yellow;"></i>', $rank);
+
+                                // Display reviews
+                                $activeClass = ($i === 0) ? "active" : "";
+                                echo '
+                                <div class="carousel-item ' . $activeClass . '">
+                                    <div class="box">
+                                        <div class="client_info">
+                                            <div class="client_name">
+                                                <h5>' . htmlspecialchars($row["Name"]) . '</h5>
+                                                <h6>' . $review . '</h6>
+                                            </div>
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </div>
+                                        <p>' . htmlspecialchars($row["Content"]) . '</p>
+                                        <p class="fw-bold opacity-50">' . $formattedDate . '</p>
+                                    </div>
+                                </div>';
+                                $i++;
+                            }
+                        } else {
+                            echo '<p>No reviews found.</p>';
+                        }
+                        ?>
+                    </div>
+
+                    <div class="carousel_btn-box">
+                        <a class="carousel-control-prev" href="#customCarousel2" role="button" data-slide="prev">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#customCarousel2" role="button" data-slide="next">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- end of reviews/feedback -->
     </div>
     <?php
     // Footer

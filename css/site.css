@@ -279,10 +279,11 @@ a:focus {
 .slider_section .detail-box {
 	padding-left: 45px;
 	margin: 45px 0;
+	font-family: "poppins", sans-serif;
 }
 
 .slider_section .detail-box h1 {
-	font-weight: bold;
+	font-weight: 800;
 	font-size: 3.5rem;
 	margin-bottom: 10px;
 }
@@ -298,6 +299,7 @@ a:focus {
 	transition: all 0.3s;
 	margin-top: 25px;
 	text-transform: uppercase;
+	font-family: "poppins", sans-serif;
 }
 
 .slider_section .detail-box a:hover {
@@ -357,6 +359,142 @@ a:focus {
 	margin-top: 16px;
 }
 
+/*---- product category section style start ----*/
+
+/* Section title styling */
+.section-title {
+    font-family: 'Poppins', sans-serif; /* Ensures Poppins font is applied */
+    font-weight: bold;
+    color: var(--primary-colour);
+    text-align: left; /* Aligns title to the left */
+    margin-bottom: 20px; /* Gap below the title */
+}
+
+
+/* Category Card Styling */
+.category-card {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 200px; /* Card height */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center content vertically */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.category-card a {
+    text-decoration: none;
+    color: inherit;
+    display: flex; /* Ensures the link spans the full card */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.category-card .category-content {
+    background: rgba(137, 108, 96, 0.8); /* Default brown background */
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: #fff; /* White text */
+    font-family: 'Poppins', sans-serif; /* Poppins font applied */
+    font-size: 18px; /* Adjusted font size */
+    font-weight: bold;
+    text-transform: capitalize;
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    transition: background 0.3s;
+}
+
+.category-card:hover .category-content {
+    background: rgba(92, 72, 64, 0.9); /* Lighter brown on hover */
+}
+
+/*---- review/feedback section style start ----*/
+.client_section .heading_container {
+	margin-bottom: 20px;
+	font-family: "poppins", sans-serif;
+	color:#8d695b; 
+	margin-top: 20px;
+  }
+  
+  .client_section .box {
+	margin: 15px 45px;
+	-webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+	padding: 25px;
+  }
+  
+  .client_section .box .client_info {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+  }
+  
+  .client_section .box .client_info .client_name h5 {
+	font-weight: 600;
+	color: #db4f66;
+	font-family: "poppins", sans-serif;
+  }
+  
+  .client_section .box .client_info .client_name h6 {
+	margin-bottom: 0;
+	color: #bfc0c0;
+	font-weight: normal;
+	font-size: 15px;
+	font-family: "poppins", sans-serif;
+  }
+  
+  .client_section .box .client_info i {
+	font-size: 24px;
+  }
+  
+  .client_section .box p {
+	margin-top: 15px;
+	font-family: "poppins", sans-serif;
+  }
+  
+  .client_section .carousel-control-prev,
+  .client_section .carousel-control-next {
+	width: 45px;
+	height: 125px;
+	background-color: #db4f66;
+	opacity: 1;
+	font-size: 28px;
+	font-family: Poppins, "san-serifs";
+	font-weight: bold;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+  }
+  
+  .client_section .carousel-control-prev {
+	left: 0;
+  }
+  
+  .client_section .carousel-control-next {
+	right: 0;
+  }
+  
 /*---- footer section style start ----*/
 .social-link-icon {
 	font-size: 24px;

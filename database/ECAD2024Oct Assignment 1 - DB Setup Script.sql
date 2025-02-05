@@ -351,7 +351,15 @@ values(1, 'Jenny Lai', 'Blk 222, Ang Mo Kio Ave 1, #12-12, S(560222)', 'Singapor
 
 -- Feedback 
 insert into Feedback(ShopperID, Subject, Content, Rank, DateTimeCreated)
-values(1, 'Feebdack about the service', 'The website provides helpful information. Fast in delivery goods.', 4, '2024-12-23 09:50:30');
+values(1, 'Feedback about the service', 'The website provides helpful information. Fast in delivery goods.', 4, '2024-12-23 09:50:30');
+
+-- Feedback from Peter Tan
+INSERT INTO Feedback(ShopperID, Subject, Content, Rank, DateTimeCreated)
+VALUES (2, 'Excellent Quality Products', 'The products are of excellent quality and meet my expectations.', 5, '2025-01-05 14:20:15');
+
+-- Feedback from Mary Mai
+INSERT INTO Feedback(ShopperID, Subject, Content, Rank, DateTimeCreated)
+VALUES (3, 'Great Customer Support', 'I had a wonderful experience with the customer support team. Highly recommended!', 5, '2025-01-10 11:45:00');
 
 
 -- GST 
