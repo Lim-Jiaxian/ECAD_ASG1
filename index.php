@@ -111,7 +111,7 @@ include("php/header.php");
                         echo '
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="promo-card">
-                        <a href="productDetails.php?pid=' . $row["ProductID"] . '">
+                        <a href="php/productDetails.php?pid=' . $row["ProductID"] . '">
                             <div class="promo-image">
                                 <img src="images/Products/' . $row["ProductImage"] . '" alt="' . htmlspecialchars($row["ProductTitle"]) . '">
                                 <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>
