@@ -22,24 +22,40 @@ $config = include(__DIR__ . "/../config.php");
                     </p>
                 </div>
                 <!-- Grid column -->
-
-                <!-- Grid column -->
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mb-4">
                         Product Category
                     </h6>
-                    <p>
-                        <a href="#!" class="text-reset" style="text-decoration: none;">Baby Clothing</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset" style="text-decoration: none;">Baby Gear</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset" style="text-decoration: none;">Bathing and Grooming</a>
-                    </p>
+
+                
+
+                <!-- Product category links -->
+                    <?php
+                    // Include the PHP file that establishes database connection handle: $conn
+                    include_once("mysql_conn.php");
+
+                    $qry = "SELECT * FROM Category ORDER BY catName ASC"; // SQL to select all categories sorted by category name
+                    $result = $conn->query($qry); // Execute the SQL and get the result
+                    
+                    // Display each category in a row
+                    while ($row = $result->fetch_array()) {
+                        $catname = urlencode($row["CatName"]);
+                        $catproduct = "/ECAD_ASG1/php/catProduct.php?cid=$row[CategoryID]&catName=$catname";
+                        $img = "..//Images/Category/$row[CatImage]";
+
+                        echo "<p>"; // Start of card column
+                        echo '  <a href="' . $catproduct . '" class="text-reset" style="text-decoration: none;">' . $row["CatName"] . '</a>';
+                        echo "  </a>";
+                        echo "</p>";
+                    }
+
+                    $conn->close(); // Close database connection
+                    ?>
                 </div>
-                <!-- Grid column -->
+                <!-- Product category links -->
+
+                
 
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">

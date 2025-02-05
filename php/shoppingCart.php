@@ -171,7 +171,7 @@ function getTaxRate($conn, $currentDate)
                                         echo "</div>";
                                         echo "</div>";
                                         echo "</div>";
-                                        $conn->close();
+                                        // Closing database connection will be in footer.php
                                     }
                                 } else {
                                     echo "<h3 style='text-align:center; color:red;'>Empty shopping cart!</h3>";
@@ -179,7 +179,7 @@ function getTaxRate($conn, $currentDate)
                                     echo "</div>";
                                     echo "</div>";
                                     echo "</div>";
-                                    $conn->close();
+                                    // Closing database connection will be in footer.php
                                 }
                                 ?>
 
