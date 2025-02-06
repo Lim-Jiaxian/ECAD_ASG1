@@ -61,11 +61,10 @@ if (isset($_SESSION["ShopperName"])) {
         </ul>';
 
     $contactus = "<a class='nav-link' href='" . $config->SITE_ROOT . "/php/contact.php'>Contact us</a>";
-
 }
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo htmlspecialchars(dirname($_SERVER['PHP_SELF']) . '/../css/site.php'); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo htmlspecialchars(dirname($_SERVER['PHP_SELF']) . '/../css/site.css'); ?>">
 
 
 <header class="header_section">
@@ -86,10 +85,10 @@ if (isset($_SESSION["ShopperName"])) {
                     </li>
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'category.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/category.php">Product Categories</a>
-                    </li>   
+                    </li>
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'search.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/search.php"><i class='fa fa-search' aria-hidden='true'></i></a>
-                    </li>        
+                    </li>
                 </ul>
                 <ul class="navbar-nav me-auto">
                     <a class="navbar-brand mx-auto" href="<?= $config->SITE_ROOT ?>/index.php">
@@ -98,12 +97,12 @@ if (isset($_SESSION["ShopperName"])) {
                     </a>
                 </ul>
 
-                
+
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item <?= (basename($_SERVER['PHP_SELF']) == 'contact.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="<?= $config->SITE_ROOT ?>/php/contact.php">Contact Us</a>
                     </li>
-                </ul>                    
+                </ul>
                 </span>
                 <ul class="navbar-nav me-auto">
                     <span class="mr-4 text-center" style="color: #514f4f;"><?= $content1; ?></span>
