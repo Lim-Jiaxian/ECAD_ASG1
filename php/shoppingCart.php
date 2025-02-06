@@ -55,6 +55,39 @@ function getTaxRate($conn, $currentDate)
     return $taxRate;
 }
 
+// Restore the shopping cart from the database after login
+if (isset($_SESSION["ShopperID"])) {
+    include_once("mysql_conn.php");
+    $shopperID = $_SESSION["ShopperID"];
+
+    // Retrieve the active cart for the logged-in user
+    $qry = "SELECT ShopCartID FROM ShopCart WHERE ShopperID = ? AND OrderPlaced = 0";
+    $stmt = $conn->prepare($qry);
+    $stmt->bind_param("i", $shopperID);
+    $stmt->execute();
+    $stmt->bind_result($shopCartID);
+    $stmt->fetch();
+    $stmt->close();
+
+    // If a cart exists, update the session variables
+    if ($shopCartID) {
+        $_SESSION["Cart"] = $shopCartID;
+
+        // Update the cart item count
+        $qry = "SELECT SUM(Quantity) AS TotalItems FROM ShopCartItem WHERE ShopCartID = ?";
+        $stmt = $conn->prepare($qry);
+        $stmt->bind_param("i", $shopCartID);
+        $stmt->execute();
+        $stmt->bind_result($totalItems);
+        $stmt->fetch();
+        $stmt->close();
+
+        $_SESSION["NumCartItem"] = $totalItems ?: 0; // Default to 0 if no items
+    } else {
+        $_SESSION["Cart"] = null;
+        $_SESSION["NumCartItem"] = 0;
+    }
+}
 
 ?>
 
