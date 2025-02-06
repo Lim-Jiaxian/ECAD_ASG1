@@ -4,11 +4,14 @@ session_start();
 
 // Read the data input from previous page
 $name = $_POST["name"];
+$dob = $_POST["dob"];
 $address = $_POST["address"];
 $country = $_POST["country"];
 $phone = $_POST["phone"];
 $email = $_POST["email"];
 $password = $_POST["password"];
+$passwordQn = $_POST["passwordQn"];
+$passwordAns = $_POST["passwordAns"];
 
 // Create a password hash using the default bcrypt algorithm
 $password =  password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -17,11 +20,11 @@ $password =  password_hash($_POST["password"], PASSWORD_DEFAULT);
 include_once("mysql_conn.php");
 
 // Define the INSERT SQL statement
-$qry = "INSERT INTO Shopper (Name, Address, Country, Phone, Email, Password)
-        VALUES (?, ?, ?, ?, ?, ?)";
+$qry = "INSERT INTO Shopper (Name, BirthDate, Address, Country, Phone, Email, Password, PwdQuestion, PwdAnswer)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($qry);
 // "ssssss" - 6 string parameters
-$stmt->bind_param("ssssss", $name, $address, $country, $phone, $email, $password);
+$stmt->bind_param("sssssssss", $name, $dob ,$address, $country, $phone, $email, $password, $passwordQn, $passwordAns);
 
 if ($stmt->execute()) { // SQL statement executed successfully 
     // Retrieve the Shooper ID assigned to the new shopper

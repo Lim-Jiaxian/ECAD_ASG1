@@ -47,10 +47,24 @@ include("header.php");
                     <input type="text" name="name" id="name" class="form-control" required />
                     <small class="form-text text-muted">(required)</small>
                 </div>
+                <!-- DOB -->
+                <div class="col-md-6 mb-3">
+                    <label for="dob" class="form-label" style="color: #8d695b;">Date Of Birth (YYYY-MM-DD):</label>
+                    <input type="text" name="dob" id="dob" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
+            </div>
+            <div class="row">
                 <!-- Email -->
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label" style="color: #8d695b;">Email Address:</label>
                     <input type="email" name="email" id="email" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
+                <!-- Phone -->
+                <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label" style="color: #8d695b;">Phone:</label>
+                    <input type="text" name="phone" id="phone" class="form-control" required />
                     <small class="form-text text-muted">(required)</small>
                 </div>
             </div>
@@ -64,29 +78,35 @@ include("header.php");
                 <!-- Address -->
                 <div class="col-md-6 mb-3">
                     <label for="address" class="form-label" style="color: #8d695b;">Address:</label>
-                    <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
+                    <textarea name="address" id="address" class="form-control" rows="2" required></textarea>
                     <small class="form-text text-muted">(required)</small>
                 </div>
             </div>
             <div class="row">
-                <!-- Phone -->
-                <div class="col-md-6 mb-3">
-                    <label for="phone" class="form-label" style="color: #8d695b;">Phone:</label>
-                    <input type="text" name="phone" id="phone" class="form-control" required />
-                    <small class="form-text text-muted">(required)</small>
-                </div>
                 <!-- Password -->
                 <div class="col-md-6 mb-3">
                     <label for="password" class="form-label" style="color: #8d695b;">Password:</label>
                     <input type="password" name="password" id="password" class="form-control" required />
                     <small class="form-text text-muted">(required)</small>
                 </div>
-            </div>
-            <div class="row">
                 <!-- Retype Password -->
                 <div class="col-md-6 mb-3">
                     <label for="password2" class="form-label" style="color: #8d695b;">Retype Password:</label>
                     <input type="password" name="password2" id="password2" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Password Question -->
+                <div class="col-md-6 mb-3">
+                    <label for="passwordQn" class="form-label" style="color: #8d695b;">Password Question:</label>
+                    <input type="text" name="passwordQn" id="passwordQn" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
+                <!-- Password Answer -->
+                <div class="col-md-6 mb-3">
+                    <label for="passwordAns" class="form-label" style="color: #8d695b;">Password Answer:</label>
+                    <input type="text" name="passwordAns" id="passwordAns" class="form-control" required />
                     <small class="form-text text-muted">(required)</small>
                 </div>
             </div>
