@@ -14,9 +14,6 @@ $config = include(__DIR__ . "/../config.php");
     <link rel="stylesheet" href="<?= $config->SITE_ROOT ?>/css/bootstrap.min.css">
     <!-- Link to compiled Bootstrap JavaScript downloaded -->
     <script src="<?= $config->SITE_ROOT ?>/js/bootstrap.bundle.min.js"></script>
-    <!-- Site specific Cascading Stylesheet -->
-    <link rel="stylesheet" href="<?= $config->SITE_ROOT ?>/css/site.css">
-    <link rel="stylesheet" href="../css/site.css">
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="<?= $config->SITE_ROOT ?>/css/bootstrap.css" />
@@ -37,6 +34,9 @@ $config = include(__DIR__ . "/../config.php");
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Site specific Cascading Stylesheet -->
+    <link rel="stylesheet" href="<?= $config->SITE_ROOT ?>/css/site.css">
 </head>
 
 <body>
