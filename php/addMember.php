@@ -45,7 +45,8 @@ else { // Error message
 $stmt->close();
 // Close database connection
 $conn->close();
-
+// Redirect to home page
+header("Location: ../index.php");
 // Display Page Layout header with updated session state and links.
 include("header.php");
 // Display message

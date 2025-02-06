@@ -55,22 +55,25 @@ include("header.php");
                 </div>
             </div>
             <div class="row">
-                <!-- Address -->
-                <div class="col-md-6 mb-3">
-                    <label for="address" class="form-label" style="color: #8d695b;">Address:</label>
-                    <textarea name="address" id="address" class="form-control" rows="3"></textarea>
-                </div>
                 <!-- Country -->
                 <div class="col-md-6 mb-3">
                     <label for="country" class="form-label" style="color: #8d695b;">Country:</label>
-                    <input type="text" name="country" id="country" class="form-control" />
+                    <input type="text" name="country" id="country" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
+                </div>
+                <!-- Address -->
+                <div class="col-md-6 mb-3">
+                    <label for="address" class="form-label" style="color: #8d695b;">Address:</label>
+                    <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
+                    <small class="form-text text-muted">(required)</small>
                 </div>
             </div>
             <div class="row">
                 <!-- Phone -->
                 <div class="col-md-6 mb-3">
                     <label for="phone" class="form-label" style="color: #8d695b;">Phone:</label>
-                    <input type="text" name="phone" id="phone" class="form-control" />
+                    <input type="text" name="phone" id="phone" class="form-control" required />
+                    <small class="form-text text-muted">(required)</small>
                 </div>
                 <!-- Password -->
                 <div class="col-md-6 mb-3">
