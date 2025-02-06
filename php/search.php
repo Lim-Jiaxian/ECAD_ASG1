@@ -78,7 +78,7 @@ if (isset($_GET['searchFilter'])) {
         }
 
         // Start product grid
-		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
         // Display results
         while ($row = $result->fetch_array()) {
             if ($result->num_rows > 0) {
@@ -174,7 +174,7 @@ if (isset($_GET['searchFilter'])) {
         }
         
         // Start product grid
-		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
         // Display results
         while ($row = $result->fetch_array()) {
             if ($result->num_rows > 0) {
@@ -269,7 +269,7 @@ if (isset($_GET['searchFilter'])) {
         }
         
         // Start product grid
-		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
         // Display results
         while ($row = $result->fetch_array()) {
             if ($result->num_rows > 0) {
@@ -310,9 +310,9 @@ if (isset($_GET['searchFilter'])) {
         // Contains the keyword entered by shopper
         $keyword = $_GET['keywords'];
         // SQL statement to pricees lower or equals to user input search
-        $qry = "SELECT ProductID, ProductTitle, ProductImage, Price, Offered, OfferedPrice FROM product WHERE Price <= ? ORDER BY ProductTitle";
+        $qry = "SELECT ProductID, ProductTitle, ProductImage, Price, Offered, OfferedPrice FROM product WHERE (Price IS NOT NULL AND Price <= ?) OR (OfferedPrice IS NOT NULL AND OfferedPrice <= ?) ORDER BY ProductTitle";
         $stmt = $conn->prepare($qry);
-        $stmt->bind_param("i", $keyword);
+        $stmt->bind_param("ii", $keyword, $keyword);
         $stmt->execute();
         $result = $stmt->get_result(); 
         // Close statement and connection
@@ -329,7 +329,7 @@ if (isset($_GET['searchFilter'])) {
         }
 
         // Start product grid
-		echo "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+		echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
         // Display results
         while ($row = $result->fetch_array()) {
             if ($result->num_rows > 0) {
