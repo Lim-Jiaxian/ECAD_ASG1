@@ -27,8 +27,8 @@ unset($_SESSION["alert"]);
         <div class="col-12">
             <h2 class="page-title">Contact Little Wonders Support</h2>
             <p class="text-muted">You can reach out to us via the following:</p>
-            <p>Phone: +65 91234567</p>
-            <p>Email: help@littlewonders.com</p>
+            <p>Phone: +65 6155 4555</p>
+            <p>Email: littlewonders@gmail.com</p>
             <p class="text-muted">OR</p>
             <form class="contact-form" method="POST">
                 <label for="form-input" class="form-label">Send us a message!</label>
