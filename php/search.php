@@ -55,9 +55,11 @@ include_once("mysql_conn.php");
 if (isset($_GET['searchFilter'])) {
     // Get the value of the selected radio button
     $selectedFilter = $_GET['searchFilter'];
-    // Search flag
+    // Search flag to search products
     $searchFlag = false;
-    // Check if the product categrory is selected
+    // Search offer flag for offer products
+    $searchOfferFlag = false;
+    // Check if the product categrory radiobutton is selected
     if ($selectedFilter == 'productCategory'){
         // Contains the keyword entered by shopper, and display them in a table
         $keyword = $_GET['keywords'];
@@ -82,85 +84,9 @@ if (isset($_GET['searchFilter'])) {
         }else{
             echo "<p class='text-center'><b>No products found in '" . htmlspecialchars($keyword) . "' category</b></p>";
         }
-
-        // Check if search flag is true
-        if($searchFlag == true){
-            // Start product grid
-            echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
-            // Display results
-            while ($row = $result->fetch_array()) {
-                if ($result->num_rows > 0) {
-                    // Check if the product has offer
-                    if($row["Offered"] == 1){
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $offerPrice = number_format($row["OfferedPrice"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
         
-                        echo "
-                            <style>
-                                .card-hover-effect {
-                                    transition: all 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover-effect:hover {
-                                    transform: scale(1.05); /* Expands the card */
-                                    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
-
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <div class='promo-image'>";
-                        echo "              <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo '              <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>';
-                        echo "          </div>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }else{
-                        // Products with no offer
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
-        
-                        echo "
-                            <style>
-                                .card-hover {
-                                    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover:hover {
-                                    transform: scale(1.05); /* Slightly expands the card */
-                                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
-
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }
-                }
-            }
-        }
+    // Check if the product title and description radiobutton is selected
     }else if ($selectedFilter == 'productTitleDesc') {
-        // Check if the product title and description is selected
         // Contains the keyword entered by shopper, and display them in a table
         $keyword = $_GET['keywords'];
         // SQL statement with a LIKE query to find user input search
@@ -186,85 +112,8 @@ if (isset($_GET['searchFilter'])) {
             echo "<p class='text-center'><b>No products found with '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
         }
         
-        // Check if search flag is true
-        if($searchFlag == true){
-            // Start product grid
-            echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
-            // Display results
-            while ($row = $result->fetch_array()) {
-                if ($result->num_rows > 0) {
-                    // Check if the product has offer
-                    if($row["Offered"] == 1){
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $offerPrice = number_format($row["OfferedPrice"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
-        
-                        echo "
-                            <style>
-                                .card-hover-effect {
-                                    transition: all 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover-effect:hover {
-                                    transform: scale(1.05); /* Expands the card */
-                                    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
-
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <div class='promo-image'>";
-                        echo "              <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo '              <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>';
-                        echo "          </div>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }else{
-                        // Products with no offer
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
-        
-                        echo "
-                            <style>
-                                .card-hover {
-                                    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover:hover {
-                                    transform: scale(1.05); /* Slightly expands the card */
-                                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
-
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }
-                }
-            }
-        }
-        
+    // Check if the product offer radiobutton is selected
     } else if ($selectedFilter == 'productOffer') {
-        // Check if the product offer radiobutton is selected
         // Contains the keyword entered by shopper, and display them in a table
         $keyword = $_GET['keywords'];
         // SQL statement with a LIKE query to find user input search
@@ -282,6 +131,7 @@ if (isset($_GET['searchFilter'])) {
         if ($result->num_rows > 0){
             // Set search flag to true
             $searchFlag = true;
+            $searchOfferFlag = true;
             // Move the search result header above the loop
             echo "<p class='text-center'><b>Showing list of offered products with " . htmlspecialchars($keyword) . " in the product name or description</b></p>";
             echo "<br>";
@@ -289,49 +139,7 @@ if (isset($_GET['searchFilter'])) {
             echo "<p class='text-center'><b>No offered products found with '" . htmlspecialchars($keyword) . "' in the product name or description</b></p>";
         }
 
-        // Check if search flag is true
-        if($searchFlag == true){
-            // Start product grid
-            echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
-            // Display results
-            while ($row = $result->fetch_array()) {
-                if ($result->num_rows > 0) {
-                    $product = "productDetails.php?pid=$row[ProductID]";
-                    $formattedPrice = number_format($row["Price"], 2);
-                    $offerPrice = number_format($row["OfferedPrice"], 2);
-                    $img = "../Images/Products/$row[ProductImage]";
-
-                    echo "
-                        <style>
-                            .card-hover-effect {
-                                transition: all 0.3s ease-in-out; /* Smooth transition */
-                            }
-                            .card-hover-effect:hover {
-                                transform: scale(1.05); /* Expands the card */
-                                box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
-                            }
-                        </style>";
-
-                    echo "<div class='col'>"; // Start of card column
-                    echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                    echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                    echo "          <div class='promo-image'>";
-                    echo "              <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                    echo '              <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>';
-                    echo "          </div>";
-                    echo "          <div class='card-body text-center'>";
-                    echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                    echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
-                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
-                    echo "              </div>";
-                    echo "          </div>";
-                    echo "      </div>"; // End of card
-                    echo "  </a>";
-                    echo "</div>"; // End of card column
-                }
-            }
-        }
+    // Check if product price radiobutton is selected for search
     } else if ($selectedFilter == 'productPrice') {
         // Check if the product price radiobutton is selected
         // Contains the keyword entered by shopper
@@ -364,82 +172,7 @@ if (isset($_GET['searchFilter'])) {
             echo "<p class='text-center'><b>Please enter a numeric price as '" . htmlspecialchars($keyword) . "' is not numeric</b></p>";
         }
 
-        // Check if search flag is true
-        if($searchFlag == true){
-            // Start product grid
-            echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
-            // Display results
-            while ($row = $result->fetch_array()) {
-                if ($result->num_rows > 0) {
-                    // Check if the product has offer
-                    if($row["Offered"] == 1){
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $offerPrice = number_format($row["OfferedPrice"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
-        
-                        echo "
-                            <style>
-                                .card-hover-effect {
-                                    transition: all 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover-effect:hover {
-                                    transform: scale(1.05); /* Expands the card */
-                                    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
-
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <div class='promo-image'>";
-                        echo "              <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo '              <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>';
-                        echo "          </div>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }else{
-                        // Products with no offer
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
-        
-                        echo "
-                            <style>
-                                .card-hover {
-                                    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover:hover {
-                                    transform: scale(1.05); /* Slightly expands the card */
-                                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
-
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }
-                }
-            }
-        }
+    // Check if baby gender radiobutton is selected
     } else if($selectedFilter == 'babyGender'){
         // Check gender keywords and change to match value in database
         if (isset($_GET['keywords']) && in_array(strtolower($_GET['keywords']), ['male', 'boy', 'm'])) {
@@ -481,87 +214,128 @@ if (isset($_GET['searchFilter'])) {
         }else{
             echo "<p class='text-center'><b>Please enter a gender (Boy, Girl, Unisex) to search for baby products, input '" . htmlspecialchars($keyword) . "' is not a gender</b></p>";
         }
+    }
 
-        // Check if search flag is true
-        if($searchFlag == true){
-            // Start product grid
-            echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
-            // Display results
-            while ($row = $result->fetch_array()) {
-                if ($result->num_rows > 0) {
-                    // Check if the product has offer
-                    if($row["Offered"] == 1){
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $offerPrice = number_format($row["OfferedPrice"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
-        
-                        echo "
-                            <style>
-                                .card-hover-effect {
-                                    transition: all 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover-effect:hover {
-                                    transform: scale(1.05); /* Expands the card */
-                                    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
+    // Check if search flag is true and dislay products
+    if($searchFlag == true && $searchOfferFlag == true){
+        // Display only offer products
+        // Start product grid
+        echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
+        // Display results
+        while ($row = $result->fetch_array()) {
+            if ($result->num_rows > 0) {
+                $product = "productDetails.php?pid=$row[ProductID]";
+                $formattedPrice = number_format($row["Price"], 2);
+                $offerPrice = number_format($row["OfferedPrice"], 2);
+                $img = "../Images/Products/$row[ProductImage]";
 
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <div class='promo-image'>";
-                        echo "              <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo '              <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>';
-                        echo "          </div>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }else{
-                        // Products with no offer
-                        $product = "productDetails.php?pid=$row[ProductID]";
-                        $formattedPrice = number_format($row["Price"], 2);
-                        $img = "../Images/Products/$row[ProductImage]";
-        
-                        echo "
-                            <style>
-                                .card-hover {
-                                    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
-                                }
-                                .card-hover:hover {
-                                    transform: scale(1.05); /* Slightly expands the card */
-                                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
-                                }
-                            </style>";
+                echo "
+                    <style>
+                        .card-hover-effect {
+                            transition: all 0.3s ease-in-out; /* Smooth transition */
+                        }
+                        .card-hover-effect:hover {
+                            transform: scale(1.05); /* Expands the card */
+                            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
+                        }
+                    </style>";
 
-                        echo "<div class='col'>"; // Start of card column
-                        echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
-                        echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
-                        echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
-                        echo "          <div class='card-body text-center'>";
-                        echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
-                        echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
-                        echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
-                        echo "              </div>";
-                        echo "          </div>";
-                        echo "      </div>"; // End of card
-                        echo "  </a>";
-                        echo "</div>"; // End of card column
-                    }
+                echo "<div class='col'>"; // Start of card column
+                echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                echo "          <div class='promo-image'>";
+                echo "              <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                echo '              <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>';
+                echo "          </div>";
+                echo "          <div class='card-body text-center'>";
+                echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
+                echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
+                echo "              </div>";
+                echo "          </div>";
+                echo "      </div>"; // End of card
+                echo "  </a>";
+                echo "</div>"; // End of card column
+            }
+        }
+    }else if($searchFlag == true){
+        // Display both offered and non-offered products
+        // Start product grid
+        echo "<div class='row row-cols-1 row-cols-md-3 g-4 row justify-content-center'>";
+        // Display results
+        while ($row = $result->fetch_array()) {
+            if ($result->num_rows > 0) {
+                // Check if the product has offer
+                if($row["Offered"] == 1){
+                    $product = "productDetails.php?pid=$row[ProductID]";
+                    $formattedPrice = number_format($row["Price"], 2);
+                    $offerPrice = number_format($row["OfferedPrice"], 2);
+                    $img = "../Images/Products/$row[ProductImage]";
+
+                    echo "
+                        <style>
+                            .card-hover-effect {
+                                transition: all 0.3s ease-in-out; /* Smooth transition */
+                            }
+                            .card-hover-effect:hover {
+                                transform: scale(1.05); /* Expands the card */
+                                box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Adds a stronger shadow */
+                            }
+                        </style>";
+
+                    echo "<div class='col'>"; // Start of card column
+                    echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                    echo "      <div class='card h-100 card-hover-effect' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                    echo "          <div class='promo-image'>";
+                    echo "              <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                    echo '              <span class="promo-badge">-' . round((1 - $row["OfferedPrice"] / $row["Price"]) * 100) . '%</span>';
+                    echo "          </div>";
+                    echo "          <div class='card-body text-center'>";
+                    echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                    echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:red; margin: 0;'>S$ $offerPrice</p>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$<del> $formattedPrice</del></p>";
+                    echo "              </div>";
+                    echo "          </div>";
+                    echo "      </div>"; // End of card
+                    echo "  </a>";
+                    echo "</div>"; // End of card column
+                }else{
+                    // Products with no offer
+                    $product = "productDetails.php?pid=$row[ProductID]";
+                    $formattedPrice = number_format($row["Price"], 2);
+                    $img = "../Images/Products/$row[ProductImage]";
+
+                    echo "
+                        <style>
+                            .card-hover {
+                                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+                            }
+                            .card-hover:hover {
+                                transform: scale(1.05); /* Slightly expands the card */
+                                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
+                            }
+                        </style>";
+
+                    echo "<div class='col'>"; // Start of card column
+                    echo "  <a href='$product' style='text-decoration: none; color: inherit;'>";
+                    echo "      <div class='card h-100 card-hover' style='box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>";
+                    echo "          <img src='$img' class='card-img-top' alt='$row[ProductTitle]' style='height: 200px; object-fit: contain;'>";
+                    echo "          <div class='card-body text-center'>";
+                    echo "              <h5 class='card-title' style='font-size: 18px; font-weight: bold; color:#8d695b; height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;'>$row[ProductTitle]</h5>";
+                    echo "              <div style='display: flex; justify-content: center; gap: 10px; align-items: center; min-height: 30px;'>";
+                    echo "                  <p class='card-text' style='font-family: Poppins; font-weight:bold; color:black; margin: 0;'>S$ $formattedPrice</p>";
+                    echo "              </div>";
+                    echo "          </div>";
+                    echo "      </div>"; // End of card
+                    echo "  </a>";
+                    echo "</div>"; // End of card column
                 }
             }
         }
-        
     }
 }
-
 
 
 echo "</div>"; // End of container
