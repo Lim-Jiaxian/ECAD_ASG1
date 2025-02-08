@@ -39,7 +39,7 @@ include("header.php"); // Include the Page Layout header
 		$result = $stmt->get_result();
 		$stmt->close();
 		if ($result->num_rows > 0) {
-			// To Do 1: Update the default new password to shopper"s account
+			// Update the default new password to shopper"s account
 			$row = $result->fetch_array();
 			$shopperId = $row["ShopperID"];
 			$new_pwd = "password"; // default password
@@ -50,9 +50,9 @@ include("header.php"); // Include the Page Layout header
 			$stmt->bind_param("si", $hashed_pwd, $shopperId);
 			$stmt->execute();
 			$stmt->close();
-			// End of To Do 1
+			
 
-			// To Do 2: e-Mail the new password to user
+			// E-Mail the new password to user
 			include("myMail.php");
 			//The "Send To" should be the email address indicated
 			//by shopper, i.e $eMail. In this case, use a testing e-mail

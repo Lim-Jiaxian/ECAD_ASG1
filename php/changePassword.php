@@ -2,13 +2,12 @@
 session_start(); // Detect the current session
 include("header2.php"); // Include the Page Layout header
 
-// To Do 1: Check if user logged in 
+// Check if user logged in 
 if (! isset($_SESSION["ShopperID"])) { // Check if user logged in 
 	// redirect to login page if the session variable shopperid is not set
 	header ("Location: login.php");
 	exit;
 }
-// End of To Do 1
 ?>
 
 <script type="text/javascript">
@@ -56,13 +55,13 @@ function validateForm()
 <?php
 // Process after user click the submit button
 if (isset($_POST["pwd1"])) {
-	// To Do 2: Read new password entered by user
+	// Read new password entered by user
 	$new_pass = $_POST["pwd1"];
 	
-	// To Do 3: Hash the default password
+	// Hash the default password
 	$newhashed_pwd = password_hash($new_pass, PASSWORD_DEFAULT);
 
-	// To Do 4: Update the new password hash
+	// Update the new password hash
     include_once("mysql_conn.php");
 	$qry = "UPDATE shopper SET Password=? WHERE ShopperID=?";
     $stmt = $conn ->prepare($qry);

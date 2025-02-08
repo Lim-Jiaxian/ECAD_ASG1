@@ -15,7 +15,7 @@ include("header.php"); // Include the Page Layout header
     <div class="mb-3 row"> <!-- 2nd row -->
         <label for="keywords" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-6">
-            <input class="form-control" name="keywords" id="keywords" type="search" placeholder="Enter details to search for products" />
+            <input class="form-control" name="keywords" id="keywords" type="search" placeholder="Enter details to search for products" required/>
             <input type="radio" id="productCategory" name="searchFilter" value="productCategory" checked="checked" style="accent-color: #8d695b;">
             <label for="productCategory">Product category</label><br>
             <input type="radio" id="productTitleDesc" name="searchFilter" value="productTitleDesc" style="accent-color: #8d695b;">
