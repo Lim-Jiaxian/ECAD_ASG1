@@ -446,7 +446,7 @@ if (isset($_GET['searchFilter'])) {
             $_GET['keywords'] = 'Boy';
         }else if(isset($_GET['keywords']) && in_array(strtolower($_GET['keywords']), ['female', 'girl', 'f'])){
             $_GET['keywords'] = 'Girl';
-        }else if(isset($_GET['keywords']) && in_array(strtolower($_GET['keywords']), ['mixed', 'mix', 'both', 'u'])){
+        }else if(isset($_GET['keywords']) && in_array(strtolower($_GET['keywords']), ['mixed', 'mix', 'both', 'unisex', 'u'])){
             $_GET['keywords'] = 'Unisex';
         }
         // Contains the keyword entered by shopper, and display them in a table
